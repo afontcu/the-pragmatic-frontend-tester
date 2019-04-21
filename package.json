@@ -1,0 +1,24 @@
+{
+  "name": "the-pragmatic-frontend-tester",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "mdx-deck deck.mdx",
+    "now-build": "mdx-deck build deck.mdx && cp -r images dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afontcu/the-pragmatic-frontend-tester.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afontcu/the-pragmatic-frontend-tester/issues"
+  },
+  "homepage": "https://github.com/afontcu/the-pragmatic-frontend-tester#readme",
+  "devDependencies": {
+    "mdx-deck": "^2.3.0"
+  }
+}

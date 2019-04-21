@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "alias": "the-pragmatic-frontend-tester",
+  "builds": [{ "src": "package.json", "use": "@now/static-build" }],
+  "routes": [
+    { "src": "^/images/(.*)", "dest": "/images/$1" },
+    { "src": "index.html", "dest": "/index.html" }
+  ]
+}
