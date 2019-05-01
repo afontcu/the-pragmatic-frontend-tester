@@ -1,12 +1,242 @@
-import { Image, Head, Appear, Split } from 'mdx-deck'
-import { Invert } from 'mdx-deck/layouts'
+import { Image, Notes, Appear } from '@mdx-deck/components'
 
-export { default as theme } from './theme'
+import future from '@mdx-deck/themes/future'
+import highlight from '@mdx-deck/themes/syntax-highlighter-prism'
 
-<Head>
-  <title>Hay que poner internet a dieta</title>
-</Head>
+export const themes = [future, highlight]
+
+The Pragmatic Front-end Tester
 
 ---
 
-Hiup!
+I wanted to talk about testing the front-end.
+
+<Notes>
+  "Who's writing FE apps? Who's testing? Nah, you all test ur apps. You might
+  not automate those tests, but I'm sure you are testing. Why do we automate?
+  What are the goals?"
+</Notes>
+
+---
+
+...but I wanted to do it following a pragmatic approach.
+
+---
+
+What has changed?
+
+<Notes>
+  Over the years, FE apps have increased in complexity, and a lot of
+  responsibility has moved from the backend to the FE. Thus, the need for better
+  testing approaches is logical. However, tools weren't there yet, and we didn't
+  have the knowledge or experience.
+</Notes>
+
+---
+
+# 👋
+
+### Adrià Fontcuberta
+
+Senior(?) Front-end Engineer @ Holaluz
+
+`afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
+
+<Notes>Holaluz: We sell electricity that is from 100% renewable sources</Notes>
+
+---
+
+Opportunity cost of testing
+
+<Notes>
+  Opportunity costs represent the benefits we miss out on when choosing one
+  alternative over another.
+
+While testing you are not actually developing new features. So there must be a
+greater reason to write that test.
+
+</Notes>
+
+---
+
+Brings your tests closer to the way how your components are used
+in production.
+
+---
+
+Test as little as possible.
+
+_(but no less)_.
+
+---
+
+### Implementation details
+
+1. Your test does something your consumer won't
+
+2. Your test breaks on refactor
+
+<Notes>
+  Refactor: changing internal implementation without modifying external behavior
+</Notes>
+
+---
+
+Changing props.
+
+User interactions (events).
+
+Subscription changes (store, APIs, routing...).
+
+<Notes>
+  Use user interactions instead of calling methods in the component directly.
+  That also brings your tests closer to the way how your components are used
+  in production. Think about your component UI as a contract for test.
+
+If you have a component which has 50 tiny methods, don't test them one by one.
+
+Instead of that, click on buttons/links triggering these methods.
+
+If you are getting data from store or passing them as props, don't check if
+the data has been assigned to vm, check data is displayed in the DOM instead.
+
+</Notes>
+
+---
+
+| What             | Type        | shallow/mount\* | Service     | API calls | Store       |
+| ---------------- | ----------- | --------------- | ----------- | --------- | ----------- |
+| Dumb components  | Unit        | shallow\*       | mock        | -         | -           |
+| Smart components | Integration | mount\*         | do not mock | mock      | do not mock |
+| Store (Vuex)     | Unit        | -               | mock        | mock      | -           |
+| API Services     | Unit        | -               | mock        | mock      | mock        |
+
+\*: I'd use render() from vue-testing-library
+
+---
+
+## The (front-end) testing pyramid - revisited
+
+---
+
+## The pragmatic front-end testing pyramid
+
+---
+
+The good ol' pyramid
+
+unit -> integration -> e2e
+
+---
+
+A more sensitive approach
+
+static -> unit -> int -> e2e (testing trophy)
+
+brought to you by Kent C. Dodds.
+
+---
+
+Cypress !== e2e
+
+<Notes>
+  Not *exclusively*. You can use it to perform e2e tests, but it also features
+  cool tools to mock calls, so use it to write high-level integration tests.
+</Notes>
+
+---
+
+**Static &nbsp; &nbsp; Unit &nbsp; &nbsp; Integration &nbsp; &nbsp; End-to-End**
+
+<div style={{ 
+  display: 'grid', 
+  gridTemplateColumns: '1fr 1fr 1fr',
+  justifyContent: 'space-between',
+}}>
+
+<p style={{margin: '0', textAlign:'left'}}>Cheap</p>
+
+&rarr;
+
+<p style={{margin: '0', textAlign:'right'}}>Expensive</p>
+
+<p style={{margin: '0', textAlign:'left'}}>Fast</p>
+
+&rarr;
+
+<p style={{margin: '0', textAlign:'right'}}>Slow</p>
+
+<p style={{margin: '0', textAlign:'left'}}>Narrowed</p>
+
+&rarr;
+
+<p style={{margin: '0', textAlign:'right'}}>Global</p>
+
+</div>
+
+---
+
+**Static &nbsp; &nbsp; Unit &nbsp; &nbsp; Integration &nbsp; &nbsp; End-to-End**
+
+<div style={{ 
+  display: 'grid', 
+  gridTemplateColumns: 'auto 1fr auto',
+  justifyContent: 'space-between',
+}}>
+
+<p style={{margin: '0', textAlign:'left'}}>Abstract</p>
+
+&rarr;
+
+<p style={{margin: '0', textAlign:'right'}}>Real</p>
+
+<p style={{margin: '0', textAlign:'left'}}>Simple problems</p>
+
+&rarr;
+
+<p style={{margin: '0', textAlign:'right'}}>Complex ones</p>
+
+<p style={{margin: '0', textAlign:'left'}}>Code-focused</p>
+
+&rarr;
+
+<p style={{margin: '0', textAlign:'right'}}>Business-focused</p>
+
+</div>
+
+---
+
+Okay Adrià enough said. How to start?
+
+---
+
+### 1. Decide what's the most important part of your app.
+
+From a business point of view. Where's the value?
+
+---
+
+### 2. Add end-to-end\* tests to cover the happy paths\*\*
+
+_\*: Or mocked e2e. Whatever._
+
+_\*\*: API responses such as 200, 404, 401..._
+
+<Notes>
+  I'd use Cypress here. Writing it with Cypress is gonna help you get your head
+  around the feature, which is a wonderful side effect.
+</Notes>
+
+---
+
+### 3. Add unit tests for isolated parts
+
+Those mostly written in pure JS / TS.
+
+The closer to the business logic, the better.
+
+---
+
+### 4. Add integration tests to cover critical parts and edge cases.
+
+Complex component trees, Vuex interactions...
