@@ -1,4 +1,5 @@
 import { Image, Notes, Appear } from '@mdx-deck/components'
+import { FullScreenCode } from 'mdx-deck/layouts'
 
 import future from '@mdx-deck/themes/future'
 import highlight from '@mdx-deck/themes/syntax-highlighter-prism'
@@ -70,17 +71,23 @@ _(but no less)_.
 
 ---
 
-### Implementation details
+### A warn on implementation details
+
+<Appear>
 
 1. Your test does something your consumer won't
 
 2. Your test breaks on refactor
+
+</Appear>
 
 <Notes>
   Refactor: changing internal implementation without modifying external behavior
 </Notes>
 
 ---
+
+### okay, what should I test then
 
 Changing props.
 
@@ -104,12 +111,88 @@ the data has been assigned to vm, check data is displayed in the DOM instead.
 
 ---
 
-| What             | Type        | shallow/mount\* | Service     | API calls | Store       |
-| ---------------- | ----------- | --------------- | ----------- | --------- | ----------- |
-| Dumb components  | Unit        | shallow\*       | mock        | -         | -           |
-| Smart components | Integration | mount\*         | do not mock | mock      | do not mock |
-| Store (Vuex)     | Unit        | -               | mock        | mock      | -           |
-| API Services     | Unit        | -               | mock        | mock      | mock        |
+<FullScreenCode>
+
+```js
+export default {
+  template: `
+    <div>
+      <span class="count">{{ count }}</span>
+      <button @click="increment">Increment</button>
+    </div>`,
+
+  data: () => ({ count: 0 }),
+
+  methods: {
+    increment() {
+      this.count++
+    },
+  },
+}
+```
+
+</FullScreenCode>
+
+---
+
+<FullScreenCode>
+
+```js
+❌
+
+import { mount } from '@vue/test-utils'
+import Counter from './Counter'
+
+it('increments value on click', () => {
+  const wrapper = mount(Counter)
+  const countElem = wrapper.find('.count')
+
+  expect(countElem.text()).toBe('0')
+
+  wrapper.vm.increment()
+
+  expect(countElem.text()).toBe('1')
+})
+```
+
+</FullScreenCode>
+
+---
+
+<FullScreenCode>
+
+```js
+✅
+
+import { render, fireEvent } from 'vue-testing-library'
+import Counter from './Counter'
+
+it('increments value on click', async () => {
+  const { getByText } = render(Counter)
+
+  getByText('0')
+
+  await fireEvent.click(getByText(/increment/i))
+
+  getByText('1')
+})
+```
+
+</FullScreenCode>
+
+<Notes>
+  Use tools that help you avoid testing implementation details
+  (vue-testing-library).
+</Notes>
+
+---
+
+| What             | Type        | mounting  | Service     | API calls | Store       |
+| ---------------- | ----------- | --------- | ----------- | --------- | ----------- |
+| Dumb components  | Unit        | shallow\* | mock        | -         | -           |
+| Smart components | Integration | mount\*   | do not mock | mock      | do not mock |
+| Store (Vuex)     | Unit        | -         | mock        | mock      | -           |
+| API Services     | Unit        | -         | mock        | mock      | mock        |
 
 \*: I'd use render() from vue-testing-library
 
@@ -210,7 +293,7 @@ Okay Adrià enough said. How to start?
 
 ---
 
-### 1. Decide what's the most important part of your app.
+### 1. Decide what's the most important part of your app
 
 From a business point of view. Where's the value?
 
