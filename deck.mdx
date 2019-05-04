@@ -2,9 +2,10 @@ import { Image, Notes, Appear } from '@mdx-deck/components'
 import { FullScreenCode } from 'mdx-deck/layouts'
 
 import future from '@mdx-deck/themes/future'
-import highlight from '@mdx-deck/themes/syntax-highlighter-prism'
+import aspect from '@mdx-deck/themes/aspect'
+import customTheme from './theme'
 
-export const themes = [future, highlight]
+export const themes = [future, aspect, customTheme]
 
 The Pragmatic Front-end Tester
 
@@ -24,20 +25,15 @@ I wanted to talk about testing the front-end.
 
 ---
 
-What has changed?
+> "solving problems in a sensible way that suits the conditions that really exist now, rather than obeying fixed theories, ideas, or rules."
 
-<Notes>
-  Over the years, FE apps have increased in complexity, and a lot of
-  responsibility has moved from the backend to the FE. Thus, the need for better
-  testing approaches is logical. However, tools weren't there yet, and we didn't
-  have the knowledge or experience.
-</Notes>
+as opposed to idealistic.
 
 ---
 
 # 👋
 
-### Adrià Fontcuberta
+#### Adrià Fontcuberta
 
 Senior(?) Front-end Engineer @ Holaluz
 
@@ -47,7 +43,13 @@ Senior(?) Front-end Engineer @ Holaluz
 
 ---
 
-Opportunity cost of testing
+**Idealistic**: "strive for a 100% code coverage possible"
+
+<Appear>
+
+**Pragmatic**: Opportunity cost of testing.
+
+</Appear>
 
 <Notes>
   Opportunity costs represent the benefits we miss out on when choosing one
@@ -60,8 +62,14 @@ greater reason to write that test.
 
 ---
 
-Brings your tests closer to the way how your components are used
-in production.
+What has changed?
+
+<Notes>
+  Over the years, FE apps have increased in complexity, and a lot of
+  responsibility has moved from the backend to the FE. Thus, the need for better
+  testing approaches is logical. However, tools weren't there yet, and we didn't
+  have the knowledge or experience.
+</Notes>
 
 ---
 
@@ -75,9 +83,9 @@ _(but no less)_.
 
 <Appear>
 
-1. Your test does something your consumer won't
+1. Your test does something your consumer won't.
 
-2. Your test breaks on refactor
+2. Your test breaks on refactor.
 
 </Appear>
 
@@ -111,98 +119,133 @@ the data has been assigned to vm, check data is displayed in the DOM instead.
 
 ---
 
-<FullScreenCode>
-
-```js
-export default {
-  template: `
-    <div>
-      <span class="count">{{ count }}</span>
-      <button @click="increment">Increment</button>
-    </div>`,
-
-  data: () => ({ count: 0 }),
-
-  methods: {
-    increment() {
-      this.count++
-    },
-  },
-}
-```
-
-</FullScreenCode>
+(small) demo time!
 
 ---
 
-<FullScreenCode>
+`vue-testing-library`?
 
-```js
-❌
-
-import { mount } from '@vue/test-utils'
-import Counter from './Counter'
-
-it('increments value on click', () => {
-  const wrapper = mount(Counter)
-  const countElem = wrapper.find('.count')
-
-  expect(countElem.text()).toBe('0')
-
-  wrapper.vm.increment()
-
-  expect(countElem.text()).toBe('1')
-})
-```
-
-</FullScreenCode>
-
----
-
-<FullScreenCode>
-
-```js
-✅
-
-import { render, fireEvent } from 'vue-testing-library'
-import Counter from './Counter'
-
-it('increments value on click', async () => {
-  const { getByText } = render(Counter)
-
-  getByText('0')
-
-  await fireEvent.click(getByText(/increment/i))
-
-  getByText('1')
-})
-```
-
-</FullScreenCode>
+Isn't `@vue/test-utils` the official testing suite for Vue?
 
 <Notes>
-  Use tools that help you avoid testing implementation details
-  (vue-testing-library).
+
+Built on top of vue test utils. Hides methods that get you closer to testing
+implementation details, while providing user-focused helpers.
+
+If you want to avoid impl details, use tools that help you out.
+
+Helps you querying for nodes similarly to how users would find them.
+
 </Notes>
 
 ---
 
-| What             | Type        | mounting  | Service     | API calls | Store       |
-| ---------------- | ----------- | --------- | ----------- | --------- | ----------- |
-| Dumb components  | Unit        | shallow\* | mock        | -         | -           |
-| Smart components | Integration | mount\*   | do not mock | mock      | do not mock |
-| Store (Vuex)     | Unit        | -         | mock        | mock      | -           |
-| API Services     | Unit        | -         | mock        | mock      | mock        |
+`dom-testing-library`
 
-\*: I'd use render() from vue-testing-library
+`vue-testing-library`
+
+`react-testing-library`
+
+`cypress-testing-library`
+
+[https://testing-library.com/](https://testing-library.com/)
+
+<Notes>
+
+Different environments, same queries and API. One less thing to learn.
+
+</Notes>
 
 ---
 
-## The (front-end) testing pyramid - revisited
+**Idealistic**: Follow the evergreen testing pyramid.
+
+<Appear>
+
+**Pragmatic**: Focus on the outcome. Get closer to reality.
+
+</Appear>
+
+<Notes>
+
+Brings your tests closer to the way how your components are used
+in production.
+
+</Notes>
 
 ---
 
-## The pragmatic front-end testing pyramid
+yo, what about testing pyramid?
+
+what about unit testing?
+
+should I write integration tests?
+
+dude I heard end-to-end testing is the way to go
+
+---
+
+(testing pyramid img)
+
+---
+
+(testing code img)
+
+---
+
+(testing trophy img)
+
+---
+
+I came up with my personal approach
+
+---
+
+**S**ensible
+
+**H**ierarchy of
+
+**R**esources about
+
+**U**nified
+
+**G**UI testing
+
+---
+
+# SHRUG
+
+Testing Pyramid
+
+---
+
+# 🤷‍
+
+Testing Pyramid
+
+---
+
+# ¯\\\_(ツ)\_/¯
+
+Testing Pyramid
+
+---
+
+a word on mocking
+
+<Notes>
+  Moking is a powerful feature. However, every time we mock we introduce holes
+  to reality, where things can go wrong. We need to use mocks sensibly.
+</Notes>
+
+---
+
+| What         | Type&nbsp;&nbsp;&nbsp; | Service    | API  | Store      |
+| ------------ | ---------------------- | ---------- | ---- | ---------- |
+| Dumb comps   | &nbsp;&nbsp;&nbsp;🤷   | -          | -    | -          |
+| Smart comps  | &nbsp;&nbsp;&nbsp;🤷   | don't mock | mock | don't mock |
+| Store (Vuex) | &nbsp;&nbsp;&nbsp;🤷   | mock       | mock | -          |
+| API Services | &nbsp;&nbsp;&nbsp;🤷   | mock       | mock | mock       |
 
 ---
 
@@ -293,6 +336,16 @@ Okay Adrià enough said. How to start?
 
 ---
 
+### 0. Configure Eslint
+
+...and use Prettier to avoid stylistic arguments.
+
+<Notes>
+  If you use TS or Flow and their typing system, you get extra points.
+</Notes>
+
+---
+
 ### 1. Decide what's the most important part of your app
 
 From a business point of view. Where's the value?
@@ -301,9 +354,13 @@ From a business point of view. Where's the value?
 
 ### 2. Add end-to-end\* tests to cover the happy paths\*\*
 
+<Appear>
+
 _\*: Or mocked e2e. Whatever._
 
 _\*\*: API responses such as 200, 404, 401..._
+
+</Appear>
 
 <Notes>
   I'd use Cypress here. Writing it with Cypress is gonna help you get your head
@@ -314,12 +371,38 @@ _\*\*: API responses such as 200, 404, 401..._
 
 ### 3. Add unit tests for isolated parts
 
-Those mostly written in pure JS / TS.
-
 The closer to the business logic, the better.
+
+<Notes>
+  Think of those plain JS files with utilities, entities, whatever. Framework
+  agnostic. UI agnostic. DOM agnostic.
+
+What about Vuex actions?
+
+</Notes>
 
 ---
 
 ### 4. Add integration tests to cover critical parts and edge cases.
 
 Complex component trees, Vuex interactions...
+
+<Notes>
+
+These are quite useful to underline parts of your app that are too complex.
+
+Is this component doing too much?
+Is it tied to too many elements?
+
+</Notes>
+
+---
+
+If it's hard to test, it's hard to **understand**.
+
+If it's hard to understand, it's hard to **maintain**.
+
+---
+
+```js
+```
