@@ -383,9 +383,9 @@ Cypress.Commands.add('login', email => {
 ---
 
 ```js
-it('can create and update a todo', () =>  {
-  createTodo('Learn Cypress command API')
-    .then(updateName('Learn Cypress custom commands composition'))
+it('can update a todo', () => {
+  createTodo('Learn Cypress')
+    .then(updateName('Learn custom commands composition'))
     .then(markAsDone)
     .then(saveTodo)
     .then(console.log)
