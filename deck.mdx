@@ -1,39 +1,52 @@
-import { Image, Notes, Appear } from '@mdx-deck/components'
-import { FullScreenCode } from 'mdx-deck/layouts'
+import { Image, Notes, Appear, Embed } from '@mdx-deck/components'  
+import { FullScreenCode, Invert } from 'mdx-deck/layouts'
 
 import future from '@mdx-deck/themes/future'
 import aspect from '@mdx-deck/themes/aspect'
+import highlight from '@mdx-deck/themes/syntax-highlighter-prism'
 import customTheme from './theme'
 
-export const themes = [future, aspect, customTheme]
+export const themes = [future, aspect, highlight, customTheme]
 
-The Pragmatic Front-end Tester
+## The Pragmatic Front-end Tester
 
 ---
 
 I wanted to talk about testing the front-end.
 
 <Notes>
-  "Who's writing FE apps? Who's testing? Nah, you all test ur apps. You might
-  not automate those tests, but I'm sure you are testing. Why do we automate?
-  What are the goals?"
+  "Who's writing FE apps? Who's testing? Are you confiden? Would you ship
+  without manually testing?"
+
+Over the years, FE apps have increased in complexity, responsibility has moved 
+from the backend to the FE. 
 </Notes>
 
 ---
 
-...but I wanted to do it following a pragmatic approach.
+...and I wanted to do it following a pragmatic approach.
 
 ---
 
+a _what_?
+
+---
+
+pragmatic:
+
 > "solving problems in a sensible way that suits the conditions that really exist now, rather than obeying fixed theories, ideas, or rules."
 
+<Appear>
+
 as opposed to idealistic.
+
+</Appear>
 
 ---
 
 # 👋
 
-#### Adrià Fontcuberta
+## Adrià Fontcuberta
 
 Senior(?) Front-end Engineer @ Holaluz
 
@@ -43,89 +56,113 @@ Senior(?) Front-end Engineer @ Holaluz
 
 ---
 
-**Idealistic**: "strive for a 100% code coverage possible"
+Wait, wait. Are you gonna explain me the testing pyramid again?
+
+---
+
+<Invert>
+
+<Image src="assets/pyramid-1.png" size="contain" />
+
+</Invert>
+
+---
+
+<Invert>
+
+<Image src="assets/pyramid-2.png" size="contain" />
+
+</Invert>
+
+---
+
+<Invert>
+
+<Image src="assets/pyramid-3.png" size="contain" />
+
+</Invert>
+
+---
+
+<Invert>
+
+<Image src="assets/pyramid-4.png" size="contain" />
+
+</Invert>
+
+---
+
+Are we gonna discuss unit testing vs. integration testing?
+
+---
+
+<video controls muted src="assets/unit-vs-int.mp4" />
+
+---
+
+2 unit tests, 0 integration tests
+
+<video controls muted src="assets/unit-vs-int-2.mp4" />
+
+---
+
+> The hardest part of testing is knowing what to test.
+
+_- Me*, 2019_
 
 <Appear>
 
-**Pragmatic**: Opportunity cost of testing.
+_\*: and probably a thousand people before._
 
 </Appear>
 
+---
+
+What are we gonna test?
+
+---
+
+Okay Adrià, say no more. How to start?
+
 <Notes>
-  Opportunity costs represent the benefits we miss out on when choosing one
-  alternative over another.
-
-While testing you are not actually developing new features. So there must be a
-greater reason to write that test.
-
+  I'll show you how I test a component. This might be called an integration test,
+  but again, I couldn't care less.
 </Notes>
 
 ---
 
-What has changed?
-
-<Notes>
-  Over the years, FE apps have increased in complexity, and a lot of
-  responsibility has moved from the backend to the FE. Thus, the need for better
-  testing approaches is logical. However, tools weren't there yet, and we didn't
-  have the knowledge or experience.
-</Notes>
+# demo time!
 
 ---
 
-Test as little as possible.
-
-_(but no less)_.
+What happened here?
 
 ---
 
-### A warn on implementation details
+### Death by **implementation details**
 
 <Appear>
 
-1. Your test does something your consumer won't.
+Your test does something your consumer won't.
 
-2. Your test breaks on refactor.
+Your test breaks on refactor.
 
 </Appear>
 
+
 <Notes>
+  Exemple canviar nom de mètode
+
   Refactor: changing internal implementation without modifying external behavior
 </Notes>
 
 ---
 
-### okay, what should I test then
-
-Changing props.
-
-User interactions (events).
-
-Subscription changes (store, APIs, routing...).
-
-<Notes>
-  Use user interactions instead of calling methods in the component directly.
-  That also brings your tests closer to the way how your components are used
-  in production. Think about your component UI as a contract for test.
-
-If you have a component which has 50 tiny methods, don't test them one by one.
-
-Instead of that, click on buttons/links triggering these methods.
-
-If you are getting data from store or passing them as props, don't check if
-the data has been assigned to vm, check data is displayed in the DOM instead.
-
-</Notes>
+A pragmatic front-end testers needs a **pragmatic testing toolbelt**.
 
 ---
 
-(small) demo time!
-
----
-
-`vue-testing-library`?
-
-Isn't `@vue/test-utils` the official testing suite for Vue?
+Jest + `vue-testing-library`
 
 <Notes>
 
@@ -148,7 +185,6 @@ Helps you querying for nodes similarly to how users would find them.
 
 `cypress-testing-library`
 
-[https://testing-library.com/](https://testing-library.com/)
 
 <Notes>
 
@@ -158,251 +194,288 @@ Different environments, same queries and API. One less thing to learn.
 
 ---
 
-**Idealistic**: Follow the evergreen testing pyramid.
+https://testing-library.com/
+
+---
+
+### In short:
+
+> “The more your tests resemble the way your software is used, the more confidence they can give you.”
+
+[Kent C. Dodds](https://twitter.com/kentcdodds/status/977018512689455106)
+
+---
+
+Changing props and user interactions (_a.k.a. `inputs`_).
+
+Events, subscriptions (_a.k.a. `outputs`_).
+
+<Notes>
+  Component UI as a contract for tests.
+  
+  User interactions instead of calling methods.
+  
+  If you are getting data from store or passing them as props, don't check if
+the data has been assigned to vm, check data is displayed in the DOM instead.
+</Notes>
+
+---
+
+# Let's try again!
+
+---
+
+### Is that enough?
+
+_(spoiler: no)_
+
+---
+
+Can we get **closer to the user**?
+
+Can we improve the **Developer Experience**?
+
+---
+
+# Enter Cypress ❤️
+
+<Notes>
+  Is an amazing tool to write end-to-end tests. It can test anything that runs
+  on a browser (including Vue).
+
+  It includes a ton of tools and features out-of-the-box: mocking/stubbing,
+  assertions, DOM selectors...
+
+  Focus on DX.
+</Notes>
+
+---
+
+# Demo time!
+
+---
+
+Hey, Adri. Why would I write integration tests with Jest if I can use Cypress?
+
+---
+
+That's a pretty good question.
+
+---
+
+## Integration tests tend to be
+
+cheaper
+
+faster
+
+more focused
+
+<Notes>
+  Cheaper to write and run.
+
+However, we are kinda getting there with tools such as Cypress.
+</Notes>
+
+---
+
+## a pragmatic approach
+
+I'd write **e2e tests** to cover the common happy paths.
+
+Then, I'd add a bunch of **integration tests** to fill in the gaps.
+
+---
+
+Show me cools things about Cypress
+
+---
+
+## Cool Thing number 1:
+
+Stubbing XHR requests
+
+<Notes>
+  Erasing the actual implementation of a function, capturing calls to the
+  function, allowing spying and configuration of return values effects. 
+
+However, every time we mock we introduce holes to reality.
+</Notes>
+
+---
+
+```js
+it('Renders error message if fetched list is empty', () => {
+  cy.server()
+    .route('GET', /api\/v2\/pokemon/, { count: 0, results: [] })
+    .as('pokemonList')
+
+  cy.visit('/')
+    .wait('@pokemonList')
+    .getByText(/no results!/i)
+})
+```
+
+<Notes>
+Use external fixtures files
+
+Specify the response code (404, 500)
+
+Set a delay
+
+Intercept the request or the response and interact with it...
+</Notes>
+
+---
+
+https://docs.cypress.io/guides/guides/network-requests.html
+
+---
+
+## Cool Thing number 2:
+
+Custom Commands
+
+---
+
+<FullScreenCode>
+
+```js
+// test/support/commands.js
+
+Cypress.Commands.add('assertURL', url => {
+  const baseUrl = Cypress.config().baseUrl
+  cy.url().should('eq', baseUrl + url)
+})
+
+
+// someTest.js
+
+it('Navigates to detailed view', () => {
+  cy.visit('/').getByText('#129').click()
+
+  cy.assertURL('/pokemon/129')
+})
+```
+
+</FullScreenCode>
+
+---
+
+```js
+Cypress.Commands.add('login', email => {
+  cy.request({ url: '/users', method: 'POST', body: email })
+    .its('body')
+    .then(({ email, password }) => {
+      cy.request({
+        url: '/login',
+        method: 'POST',
+        body: { email, password },
+      })
+    })
+})
+```
+
+<Notes>
+  Additional benefit: building UI programmatically, not as a user would!
+</Notes>
+
+---
+
+https://docs.cypress.io/api/cypress-api/custom-commands.html
+
+---
+
+Oh... poor little unit test.
+
+---
+
+## Where are unit tests useful:
+
+Helper utilities
+
+Vuex getters / mutations
+
+Vuex actions\*
+
+Entities, Value Objects...
+
+<Notes>
+  If they are either: Easily tested (simple functions) or Critical to business.
+
+Vuex actions to help you develop: they usually contain a heavy chunk of logic.
+Tests will help you reason about that logic.
+
+</Notes>
+
+---
+
+General tips for the pragmatic (front-end) tester
+
+---
+
+# tip #1 
+
+Use Eslint.
+
+Seriously, it is a testing tool.
+
+Then, turn off the stylistic rules and install Prettier.
+
+---
+
+# tip #2
+
+You found a bug? Great. 👍
+
+Now, **write a test before** fixing it and watch it fail.
+
+Then fix it. Make sure the bug stays dead.
+
+---
+
+# tip #3
+
+Having a hard time testing a piece of code? Do you need to mock half the app? That's a bad smell.
 
 <Appear>
-
-**Pragmatic**: Focus on the outcome. Get closer to reality.
-
-</Appear>
-
-<Notes>
-
-Brings your tests closer to the way how your components are used
-in production.
-
-</Notes>
-
----
-
-yo, what about testing pyramid?
-
-what about unit testing?
-
-should I write integration tests?
-
-dude I heard end-to-end testing is the way to go
-
----
-
-(testing pyramid img)
-
----
-
-(testing code img)
-
----
-
-(testing trophy img)
-
----
-
-I came up with my personal approach
-
----
-
-**S**ensible
-
-**H**ierarchy of
-
-**R**esources about
-
-**U**nified
-
-**G**UI testing
-
----
-
-# SHRUG
-
-Testing Pyramid
-
----
-
-# 🤷‍
-
-Testing Pyramid
-
----
-
-# ¯\\\_(ツ)\_/¯
-
-Testing Pyramid
-
----
-
-a word on mocking
-
-<Notes>
-  Moking is a powerful feature. However, every time we mock we introduce holes
-  to reality, where things can go wrong. We need to use mocks sensibly.
-</Notes>
-
----
-
-| What         | Type&nbsp;&nbsp;&nbsp; | Service    | API  | Store      |
-| ------------ | ---------------------- | ---------- | ---- | ---------- |
-| Dumb comps   | &nbsp;&nbsp;&nbsp;🤷   | -          | -    | -          |
-| Smart comps  | &nbsp;&nbsp;&nbsp;🤷   | don't mock | mock | don't mock |
-| Store (Vuex) | &nbsp;&nbsp;&nbsp;🤷   | mock       | mock | -          |
-| API Services | &nbsp;&nbsp;&nbsp;🤷   | mock       | mock | mock       |
-
----
-
-The good ol' pyramid
-
-unit -> integration -> e2e
-
----
-
-A more sensitive approach
-
-static -> unit -> int -> e2e (testing trophy)
-
-brought to you by Kent C. Dodds.
-
----
-
-Cypress !== e2e
-
-<Notes>
-  Not *exclusively*. You can use it to perform e2e tests, but it also features
-  cool tools to mock calls, so use it to write high-level integration tests.
-</Notes>
-
----
-
-**Static &nbsp; &nbsp; Unit &nbsp; &nbsp; Integration &nbsp; &nbsp; End-to-End**
-
-<div style={{ 
-  display: 'grid', 
-  gridTemplateColumns: '1fr 1fr 1fr',
-  justifyContent: 'space-between',
-}}>
-
-<p style={{margin: '0', textAlign:'left'}}>Cheap</p>
-
-&rarr;
-
-<p style={{margin: '0', textAlign:'right'}}>Expensive</p>
-
-<p style={{margin: '0', textAlign:'left'}}>Fast</p>
-
-&rarr;
-
-<p style={{margin: '0', textAlign:'right'}}>Slow</p>
-
-<p style={{margin: '0', textAlign:'left'}}>Narrowed</p>
-
-&rarr;
-
-<p style={{margin: '0', textAlign:'right'}}>Global</p>
-
-</div>
-
----
-
-**Static &nbsp; &nbsp; Unit &nbsp; &nbsp; Integration &nbsp; &nbsp; End-to-End**
-
-<div style={{ 
-  display: 'grid', 
-  gridTemplateColumns: 'auto 1fr auto',
-  justifyContent: 'space-between',
-}}>
-
-<p style={{margin: '0', textAlign:'left'}}>Abstract</p>
-
-&rarr;
-
-<p style={{margin: '0', textAlign:'right'}}>Real</p>
-
-<p style={{margin: '0', textAlign:'left'}}>Simple problems</p>
-
-&rarr;
-
-<p style={{margin: '0', textAlign:'right'}}>Complex ones</p>
-
-<p style={{margin: '0', textAlign:'left'}}>Code-focused</p>
-
-&rarr;
-
-<p style={{margin: '0', textAlign:'right'}}>Business-focused</p>
-
-</div>
-
----
-
-Okay Adrià enough said. How to start?
-
----
-
-### 0. Configure Eslint
-
-...and use Prettier to avoid stylistic arguments.
-
-<Notes>
-  If you use TS or Flow and their typing system, you get extra points.
-</Notes>
-
----
-
-### 1. Decide what's the most important part of your app
-
-From a business point of view. Where's the value?
-
----
-
-### 2. Add end-to-end\* tests to cover the happy paths\*\*
-
-<Appear>
-
-_\*: Or mocked e2e. Whatever._
-
-_\*\*: API responses such as 200, 404, 401..._
-
-</Appear>
-
-<Notes>
-  I'd use Cypress here. Writing it with Cypress is gonna help you get your head
-  around the feature, which is a wonderful side effect.
-</Notes>
-
----
-
-### 3. Add unit tests for isolated parts
-
-The closer to the business logic, the better.
-
-<Notes>
-  Think of those plain JS files with utilities, entities, whatever. Framework
-  agnostic. UI agnostic. DOM agnostic.
-
-What about Vuex actions?
-
-</Notes>
-
----
-
-### 4. Add integration tests to cover critical parts and edge cases.
-
-Complex component trees, Vuex interactions...
-
-<Notes>
-
-These are quite useful to underline parts of your app that are too complex.
-
-Is this component doing too much?
-Is it tied to too many elements?
-
-</Notes>
-
----
 
 If it's hard to test, it's hard to **understand**.
 
 If it's hard to understand, it's hard to **maintain**.
 
+</Appear>
+
+<Notes>
+  Testing outline bad smells and pieces of code that could use some refactor.
+</Notes>
+
 ---
 
-```js
-```
+wrapping up.
+
+---
+
+<Appear>
+
+Write tests, but **not too many**. Focus on ROI.
+
+Add **integration** tests higher up in tree.
+
+Add **e2e** tests with Cypress to test happy paths.
+
+Add fast **unit** tests for small modules and functions.
+
+</Appear>
+
+---
+
+### To read more
+
+https://github.com/afontcu/awesome-learning#testing
+
+---
+
+# Thank you! 👋
+
+`afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
