@@ -382,6 +382,25 @@ Cypress.Commands.add('login', email => {
 
 ---
 
+```js
+it('can create and update a todo', () =>  {
+  createTodo('Learn Cypress command API')
+    .then(updateName('Learn Cypress custom commands composition'))
+    .then(markAsDone)
+    .then(saveTodo)
+    .then(console.log)
+})
+
+// a few hundred milliseconds later:
+// { name: "Learn Cypress custom commands composition", done: true }
+```
+
+<Notes>
+  Source: https://medium.com/@NicholasBoll/cypress-io-scaling-e2e-testing-with-custom-commands-6b72b902aab
+</Notes>
+
+---
+
 https://docs.cypress.io/api/cypress-api/custom-commands.html
 
 ---
