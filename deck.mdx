@@ -44,6 +44,34 @@ as opposed to idealistic.
 
 ---
 
+So you are not explaining the testing pyramid again?
+
+---
+
+<Invert>
+
+<Image src="images/pyramid-1.png" size="contain" />
+
+</Invert>
+
+---
+
+<Invert>
+
+<Image src="images/illuminati.png" size="contain" />
+
+</Invert>
+
+---
+
+Are we gonna discuss unit testing vs. integration testing?
+
+---
+
+<video controls muted src="images/unit-vs-int.mp4" />
+
+---
+
 # 👋
 
 ## Adrià Fontcuberta
@@ -56,113 +84,149 @@ Senior(?) Front-end Engineer @ Holaluz
 
 ---
 
-Wait, wait. Are you gonna explain me the testing pyramid again?
+## Disclaimer
 
----
+I work on front-end applications.
 
-<Invert>
-
-<Image src="assets/pyramid-1.png" size="contain" />
-
-</Invert>
-
----
-
-<Invert>
-
-<Image src="assets/pyramid-2.png" size="contain" />
-
-</Invert>
-
----
-
-<Invert>
-
-<Image src="assets/pyramid-3.png" size="contain" />
-
-</Invert>
-
----
-
-<Invert>
-
-<Image src="assets/pyramid-4.png" size="contain" />
-
-</Invert>
-
----
-
-Are we gonna discuss unit testing vs. integration testing?
-
----
-
-<video controls muted src="assets/unit-vs-int.mp4" />
-
----
-
-2 unit tests, 0 integration tests
-
-<video controls muted src="assets/unit-vs-int-2.mp4" />
-
----
-
-> The hardest part of testing is knowing what to test.
-
-_- Me*, 2019_
-
-<Appear>
-
-_\*: and probably a thousand people before._
-
-</Appear>
-
----
-
-What are we gonna test?
-
----
-
-Okay Adrià, say no more. How to start?
+This is my experience, so YMMV.
 
 <Notes>
-  I'll show you how I test a component. This might be called an integration test,
-  but again, I couldn't care less.
+  Not Node. Not libraries. Not frameworks.
 </Notes>
 
 ---
 
-# demo time!
+Let's say I'm developing an app.
 
 ---
 
-What happened here?
+What should I test? There's a lot of stuff.
 
 ---
 
-### Death by **implementation details**
+Divide and conquer: focus on business value.
+
+---
+
+# Demo time!
+
+---
+
+Noticed something weird?
+
+<Notes>Would you feel comfortable?</Notes>
+
+---
+
+Input &rarr; **Function** &rarr; Output
+
+---
+
+```js
+const sum = (a, b) => a + b
+
+test('sum', () => {
+  expect(sum(1, 2)).toBe(3)
+})
+```
+
+---
+
+Input &rarr; **Function** &rarr; Output
+
+---
+
+Input &rarr; **Component** &rarr; Output
+
+---
+
+### There are only two types of inputs
 
 <Appear>
 
-Your test does something your consumer won't.
+Props
 
-Your test breaks on refactor.
+User interactions
+
+</Appear>
+
+<Notes>
+  Component UI as a contract for tests.
+
+  Props as a "public API".
+</Notes>
+
+---
+
+### There are only two types of outputs
+
+<Appear>
+
+HTML elements (DOM)
+
+Side effects (events, network requests...)
+
+</Appear>
+
+<Notes>
+  User interactions instead of calling methods.
+  
+  If you are getting data from store or passing them as props, don't check if
+the data has been assigned to vm, check data is displayed in the DOM instead.
+
+</Notes>
+
+---
+
+```js
+// Act
+wrapper.setData({ power: 80 })
+wrapper.vm.handleSubmit()
+
+// Assert
+expect(wrapper.vm.power).toBe(80)
+expect(wrapper.vm.error).toBe('80 is an invalid power!')
+```
+
+---
+
+## ⚠️ Implementation details ⚠️
+
+---
+
+<Appear>
+
+Your test does something its **consumers** won't.
+
+Your test breaks on **refactor**.
 
 </Appear>
 
 
 <Notes>
-  Exemple canviar nom de mètode
+  If test is doing something different from user & developer, it becomes a third
+  consumer.
+  User: input interactions, output side effects
+  Dev: input props, output elements, event
 
-  Refactor: changing internal implementation without modifying external behavior
+  Refactor: changing internal implementation without modifying external behavior.
+
+  Exemple canviar nom de mètode.
+
+  This undermines our confidence in testing. They fail at random times.
 </Notes>
 
 ---
 
-A pragmatic front-end testers needs a **pragmatic testing toolbelt**.
+Pragmatic front-end testers need **pragmatic testing toolbelts**.
+
+<Notes>
+  Tools that focus on inputs (props, interactions) and outputs (DOM, side effects).
+</Notes>
 
 ---
 
-Jest + `vue-testing-library`
+`vue-testing-library`
 
 <Notes>
 
@@ -206,26 +270,33 @@ https://testing-library.com/
 
 ---
 
-Changing props and user interactions (_a.k.a. `inputs`_).
-
-Events, subscriptions (_a.k.a. `outputs`_).
-
-<Notes>
-  Component UI as a contract for tests.
-  
-  User interactions instead of calling methods.
-  
-  If you are getting data from store or passing them as props, don't check if
-the data has been assigned to vm, check data is displayed in the DOM instead.
-</Notes>
-
----
-
 # Let's try again!
 
 ---
 
-### Is that enough?
+"Hm, that's an integration test because potatoes"
+
+"Well, actually, you are writing unit tests, then"
+
+---
+
+<Image src="images/like-i-care.gif" size="contain" />
+
+---
+
+I decided to call them **component tests**
+
+#  🤷‍♀️
+
+<Notes>
+  Because I always test components the same way :D
+
+  Notice how we didn't even discuss shallow rendering.
+</Notes>
+
+---
+
+## Is that enough?
 
 _(spoiler: no)_
 
@@ -255,7 +326,9 @@ Can we improve the **Developer Experience**?
 
 ---
 
-Hey, Adri. Why would I write integration tests with Jest if I can use Cypress?
+Hey, Adri.
+
+Why would I write component tests if I can use Cypress?
 
 ---
 
@@ -263,16 +336,16 @@ That's a pretty good question.
 
 ---
 
-## Integration tests tend to be
+<p style={{textAlign:'left'}}>Component tests tend to be **cheaper**</p>
 
-cheaper
+<p style={{textAlign:'left'}}>Component tests tend to be **faster**</p>
 
-faster
-
-more focused
+<p style={{textAlign:'left'}}>Component tests tend to be **more focused**</p>
 
 <Notes>
   Cheaper to write and run.
+  
+  Better balance between cost, confidence and scope.
 
 However, we are kinda getting there with tools such as Cypress.
 </Notes>
@@ -281,150 +354,45 @@ However, we are kinda getting there with tools such as Cypress.
 
 ## a pragmatic approach
 
-I'd write **e2e tests** to cover the common happy paths.
+I'd use Cypress to cover common happy paths.
 
-Then, I'd add a bunch of **integration tests** to fill in the gaps.
-
----
-
-Show me cools things about Cypress
+I'd add a bunch of **component tests** to test critical parts and edge cases.
 
 ---
 
-## Cool Thing number 1:
-
-Stubbing XHR requests
-
-<Notes>
-  Erasing the actual implementation of a function, capturing calls to the
-  function, allowing spying and configuration of return values effects. 
-
-However, every time we mock we introduce holes to reality.
-</Notes>
+Oh... poor little unit tests 😢
 
 ---
 
-```js
-it('Renders error message if fetched list is empty', () => {
-  cy.server()
-    .route('GET', /api\/v2\/pokemon/, { count: 0, results: [] })
-    .as('pokemonList')
-
-  cy.visit('/')
-    .wait('@pokemonList')
-    .getByText(/no results!/i)
-})
-```
-
-<Notes>
-Use external fixtures files
-
-Specify the response code (404, 500)
-
-Set a delay
-
-Intercept the request or the response and interact with it...
-</Notes>
-
----
-
-https://docs.cypress.io/guides/guides/network-requests.html
-
----
-
-## Cool Thing number 2:
-
-Custom Commands
-
----
-
-<FullScreenCode>
-
-```js
-// test/support/commands.js
-
-Cypress.Commands.add('assertURL', url => {
-  const baseUrl = Cypress.config().baseUrl
-  cy.url().should('eq', baseUrl + url)
-})
-
-
-// someTest.js
-
-it('Navigates to detailed view', () => {
-  cy.visit('/').getByText('#129').click()
-
-  cy.assertURL('/pokemon/129')
-})
-```
-
-</FullScreenCode>
-
----
-
-```js
-Cypress.Commands.add('login', email => {
-  cy.request({ url: '/users', method: 'POST', body: email })
-    .its('body')
-    .then(({ email, password }) => {
-      cy.request({
-        url: '/login',
-        method: 'POST',
-        body: { email, password },
-      })
-    })
-})
-```
-
-<Notes>
-  Additional benefit: building UI programmatically, not as a user would!
-</Notes>
-
----
-
-```js
-it('can update a todo', () => {
-  createTodo('Learn Cypress')
-    .then(updateName('Learn custom commands composition'))
-    .then(markAsDone)
-    .then(saveTodo)
-    .then(console.log)
-})
-
-// a few hundred milliseconds later:
-// { name: "Learn Cypress custom commands composition", done: true }
-```
-
-<Notes>
-  Source: https://medium.com/@NicholasBoll/cypress-io-scaling-e2e-testing-with-custom-commands-6b72b902aab
-</Notes>
-
----
-
-https://docs.cypress.io/api/cypress-api/custom-commands.html
-
----
-
-Oh... poor little unit test.
-
----
-
-## Where are unit tests useful:
+## Where are unit tests useful
 
 Helper utilities
 
-Vuex getters / mutations
-
-Vuex actions\*
-
 Entities, Value Objects...
 
+Vuex getters / mutations
+
 <Notes>
-  If they are either: Easily tested (simple functions) or Critical to business.
+  So, mostly plain JS files with pure functions.
 
 Vuex actions to help you develop: they usually contain a heavy chunk of logic.
 Tests will help you reason about that logic.
 
+</Notes>
+
+---
+
+Mate, what about Vuex Actions?
+
+---
+
+I kinda treat them as "use cases".
+
+I'd write unit tests to inform my design.
+
+<Notes>
+  Main focus is coming up with a better design. Avoiding regressions is a nice
+  side effect.
 </Notes>
 
 ---
@@ -435,9 +403,7 @@ General tips for the pragmatic (front-end) tester
 
 # tip #1 
 
-Use Eslint.
-
-Seriously, it is a testing tool.
+Use **Eslint**. Seriously, it is a testing tool.
 
 Then, turn off the stylistic rules and install Prettier.
 
@@ -447,9 +413,13 @@ Then, turn off the stylistic rules and install Prettier.
 
 You found a bug? Great. 👍
 
+<Appear>
+
 Now, **write a test before** fixing it and watch it fail.
 
 Then fix it. Make sure the bug stays dead.
+
+</Appear>
 
 ---
 
@@ -459,14 +429,18 @@ Having a hard time testing a piece of code? Do you need to mock half the app? Th
 
 <Appear>
 
-If it's hard to test, it's hard to **understand**.
+If it's hard to test, it's probably **doing too much**.
+
+If it's doing to much, it's probably hard to **understand**.
 
 If it's hard to understand, it's hard to **maintain**.
 
 </Appear>
 
 <Notes>
-  Testing outline bad smells and pieces of code that could use some refactor.
+  Testing higlights pieces of code that could use some refactor.
+
+If a test inflicts pain, we tend to blame the test - even when the root cause is in the code's design.
 </Notes>
 
 ---
@@ -479,7 +453,7 @@ wrapping up.
 
 Write tests, but **not too many**. Focus on ROI.
 
-Add **integration** tests higher up in tree.
+Add **component** tests for critical/complex components.
 
 Add **e2e** tests with Cypress to test happy paths.
 
@@ -498,3 +472,11 @@ https://github.com/afontcu/awesome-learning#testing
 # Thank you! 👋
 
 `afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
+
+---
+
+### oh btw we r hiring k thx bye 👋
+
+👉 http://tiny.cc/holaluz-frontend 👈
+
+_(more openings at: https://holaluz.workable.com)_
