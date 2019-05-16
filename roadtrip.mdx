@@ -1,0 +1,483 @@
+import { Image, Notes, Appear, Embed } from '@mdx-deck/components'  
+import { FullScreenCode, Invert } from 'mdx-deck/layouts'
+
+import future from '@mdx-deck/themes/future'
+import aspect from '@mdx-deck/themes/aspect'
+import highlight from '@mdx-deck/themes/syntax-highlighter-prism'
+import customTheme from './theme'
+
+export const themes = [future, aspect, highlight, customTheme]
+
+## The Pragmatic Front-end Tester
+
+---
+
+
+I wanted to talk about testing the front-end.
+
+<Notes>
+  "Who's writing FE apps? Who's testing? Are you confiden? Would you ship
+  without manually testing?"
+
+Over the years, FE apps have increased in complexity, responsibility has moved 
+from the backend to the FE. 
+</Notes>
+
+---
+
+...and I wanted to do it following a pragmatic approach.
+
+---
+
+a _what_?
+
+---
+
+pragmatic:
+
+> "solving problems in a sensible way that suits the conditions that really exist now, rather than obeying fixed theories, ideas, or rules."
+
+<Appear>
+
+as opposed to idealistic.
+
+</Appear>
+
+---
+
+So you are not explaining the testing pyramid again?
+
+---
+
+<Invert>
+
+<Image src="images/pyramid-1.png" size="contain" />
+
+</Invert>
+
+---
+
+<Invert>
+
+<Image src="images/illuminati.png" size="contain" />
+
+</Invert>
+
+---
+
+Are we gonna discuss unit testing vs. integration testing?
+
+---
+
+<video controls muted src="images/unit-vs-int.mp4" />
+
+---
+
+# 👋
+
+## Adrià Fontcuberta
+
+Senior(?) Front-end Engineer @ Holaluz
+
+`afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
+
+<Notes>Holaluz: We sell electricity that is from 100% renewable sources</Notes>
+
+---
+
+## Disclaimer
+
+I work on front-end applications.
+
+This is my experience, so YMMV.
+
+<Notes>
+  Not Node. Not libraries. Not frameworks.
+</Notes>
+
+---
+
+Let's say I'm developing an app.
+
+---
+
+What should I test? There's a lot of stuff.
+
+---
+
+Divide and conquer: focus on business value.
+
+---
+
+# Demo time!
+
+---
+
+Noticed something weird?
+
+<Notes>Would you feel comfortable?</Notes>
+
+---
+
+Input &rarr; **Function** &rarr; Output
+
+---
+
+```js
+const sum = (a, b) => a + b
+
+test('sum', () => {
+  expect(sum(1, 2)).toBe(3)
+})
+```
+
+---
+
+Input &rarr; **Function** &rarr; Output
+
+---
+
+Input &rarr; **Component** &rarr; Output
+
+---
+
+### There are only two types of inputs
+
+<Appear>
+
+Props
+
+User interactions
+
+</Appear>
+
+<Notes>
+  Component UI as a contract for tests.
+
+  Props as a "public API".
+</Notes>
+
+---
+
+### There are only two types of outputs
+
+<Appear>
+
+HTML elements (DOM)
+
+Side effects (events, network requests...)
+
+</Appear>
+
+<Notes>
+  User interactions instead of calling methods.
+  
+  If you are getting data from store or passing them as props, don't check if
+the data has been assigned to vm, check data is displayed in the DOM instead.
+
+</Notes>
+
+---
+
+```js
+// Act
+wrapper.setData({ power: 80 })
+wrapper.vm.handleSubmit()
+
+// Assert
+expect(wrapper.vm.power).toBe(80)
+expect(wrapper.vm.error).toBe('80 is an invalid power!')
+```
+
+---
+
+## ⚠️ Implementation details ⚠️
+
+---
+
+<Appear>
+
+Your test does something its **consumers** won't.
+
+Your test breaks on **refactor**.
+
+</Appear>
+
+
+<Notes>
+  If test is doing something different from user & developer, it becomes a third
+  consumer.
+  User: input interactions, output side effects
+  Dev: input props, output elements, event
+
+  Refactor: changing internal implementation without modifying external behavior.
+
+  Exemple canviar nom de mètode.
+
+  This undermines our confidence in testing. They fail at random times.
+</Notes>
+
+---
+
+Pragmatic front-end testers need **pragmatic testing toolbelts**.
+
+<Notes>
+  Tools that focus on inputs (props, interactions) and outputs (DOM, side effects).
+</Notes>
+
+---
+
+`vue-testing-library`
+
+<Notes>
+
+Built on top of vue test utils. Hides methods that get you closer to testing
+implementation details, while providing user-focused helpers.
+
+If you want to avoid impl details, use tools that help you out.
+
+Helps you querying for nodes similarly to how users would find them.
+
+</Notes>
+
+---
+
+`vue-testing-library` but also
+
+`dom-testing-library`
+
+`react-testing-library`
+
+`cypress-testing-library`
+
+
+<Notes>
+
+Different environments, same queries and API. One less thing to learn.
+
+</Notes>
+
+---
+
+[testing-library.com](https://testing-library.com)
+
+---
+
+### In short:
+
+> “The more your tests resemble the way your software is used, the more confidence they can give you.”
+
+[Kent C. Dodds](https://twitter.com/kentcdodds/status/977018512689455106)
+
+---
+
+# Let's try again!
+
+---
+
+"Hm, that's an integration test because potatoes"
+
+"Well, actually, you are writing unit tests, then"
+
+---
+
+<Image src="images/like-i-care.gif" size="contain" />
+
+---
+
+I decided to call them **component tests**
+
+#  🤷‍♀️
+
+<Notes>
+  Because I always test components the same way :D
+
+  Notice how we didn't even discuss shallow rendering.
+</Notes>
+
+---
+
+## Is that enough?
+
+_(spoiler: no)_
+
+---
+
+Can we get **closer to the user**?
+
+Can we improve the **Developer Experience**?
+
+---
+
+# Enter Cypress ❤️
+
+<Notes>
+  Is an amazing tool to write end-to-end tests. It can test anything that runs
+  on a browser (including Vue).
+
+  It includes a ton of tools and features out-of-the-box: mocking/stubbing,
+  assertions, DOM selectors...
+
+  Focus on DX.
+</Notes>
+
+---
+
+# Demo time!
+
+---
+
+Hey, Adri.
+
+Why would I write component tests if I can use Cypress?
+
+---
+
+That's a pretty good question.
+
+---
+
+<p style={{textAlign:'left'}}>Component tests tend to be **cheaper**</p>
+
+<p style={{textAlign:'left'}}>Component tests tend to be **faster**</p>
+
+<p style={{textAlign:'left'}}>Component tests tend to be **more focused**</p>
+
+<Notes>
+  Cheaper to write and run.
+  
+  Better balance between cost, confidence and scope.
+
+However, we are kinda getting there with tools such as Cypress.
+</Notes>
+
+---
+
+## a pragmatic approach
+
+I'd use Cypress to cover common happy paths.
+
+I'd add a bunch of **component tests** to test critical parts and edge cases.
+
+---
+
+Oh... poor little unit tests 😢
+
+---
+
+## Where are unit tests useful
+
+Helper utilities
+
+Entities, Value Objects...
+
+Vuex getters / mutations
+
+<Notes>
+  So, mostly plain JS files with pure functions.
+
+Vuex actions to help you develop: they usually contain a heavy chunk of logic.
+Tests will help you reason about that logic.
+
+</Notes>
+
+---
+
+Mate, what about Vuex Actions?
+
+---
+
+I kinda treat them as "use cases".
+
+I'd write unit tests to inform my design.
+
+<Notes>
+  Main focus is coming up with a better design. Avoiding regressions is a nice
+  side effect.
+</Notes>
+
+---
+
+General tips for the pragmatic (front-end) tester
+
+---
+
+# tip #1 
+
+Use **Eslint**. Seriously, it is a testing tool.
+
+Then, turn off the stylistic rules and install Prettier.
+
+---
+
+# tip #2
+
+You found a bug? Great. 👍
+
+<Appear>
+
+Now, **write a test before** fixing it and watch it fail.
+
+Then fix it. Make sure the bug stays dead.
+
+</Appear>
+
+---
+
+# tip #3
+
+Having a hard time testing a piece of code? Do you need to mock half the app? That's a bad smell.
+
+<Appear>
+
+If it's hard to test, it's probably **doing too much**.
+
+If it's doing to much, it's probably hard to **understand**.
+
+If it's hard to understand, it's hard to **maintain**.
+
+</Appear>
+
+<Notes>
+  Testing higlights pieces of code that could use some refactor.
+
+If a test inflicts pain, we tend to blame the test - even when the root cause is in the code's design.
+</Notes>
+
+---
+
+wrapping up.
+
+---
+
+<Appear>
+
+Write tests, but **not too many**. Focus on ROI.
+
+Add **component** tests for critical/complex components.
+
+Add **e2e** tests with Cypress to test happy paths.
+
+Add fast **unit** tests for small modules and functions.
+
+</Appear>
+
+---
+
+### To read more
+
+https://github.com/afontcu/awesome-learning#testing
+
+---
+
+# Thank you! 👋
+
+`afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
+
+---
+
+### oh btw we r hiring k thx bye 👋
+
+👉 http://tiny.cc/holaluz-frontend 👈
+
+_(more openings at: https://holaluz.com/jobs)_

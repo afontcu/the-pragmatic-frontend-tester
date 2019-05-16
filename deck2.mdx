@@ -522,19 +522,160 @@ However, we are kinda getting there with tools such as Cypress.
 
 ---
 
+## Unit tests?
+
+<Appear>
+
+So you have Entities, Use cases or similar? Test the hell out of it.
+
+They help me uncover poorly designed code.
+
+I'd use them when working with plain JS files and pure functions.
+
+</Appear>
+
+<Notes>
+  Avoiding regressions is a nice side effect, but not the goal itself.
+</Notes>
+
+---
+
+
+<FullScreenCode>
+
+```js
+export async function handleAddRegistration({
+  user,
+  registration,
+  isExistingUser,
+  validateUser,
+  createNewUser,
+  createNewRegistration,
+  respondWithError,
+  respondWithSuccess,
+}) {
+  if (await isExistingUser(user)) {
+    await validateUser(user)
+  } else {
+    await createNewUser(user)
+  }
+
+  try {
+    await createNewRegistration(registration)
+  } catch (err) {
+    await respondWithError(err)
+  }
+
+  await respondWithSuccess()
+}
+```
+
+</FullScreenCode>
+
+---
+
+<FullScreenCode>
+
+```js
+test('Create new registration for an existing user', async () => {
+  const user = {}
+  const registration = {}
+  const isExistingUser = jest.fn(() => true)
+  const validateUser = jest.fn()
+  const createNewUser = jest.fn()
+  const createNewRegistration = jest.fn()
+  const respondWithError = jest.fn()
+  const respondWithSuccess = jest.fn()
+
+  await handleAddRegistration({
+    user,
+    registration,
+    isExistingUser,
+    validateUser,
+    createNewUser,
+    createNewRegistration,
+    respondWithError,
+    respondWithSuccess,
+  })
+
+  expect(isExistingUser).toHaveBeenCalledTimes(1)
+  expect(isExistingUser).toHaveBeenCalledWith(user)
+
+  expect(validateUser).toHaveBeenCalledTimes(1)
+  expect(validateUser).toHaveBeenCalledWith(user)
+
+  expect(createNewUser).not.toHaveBeenCalled()
+
+  expect(isExistingUser).toHaveBeenCalledTimes(1)
+
+  expect(createNewRegistration).toHaveBeenCalledWith(registration)
+
+  expect(respondWithError).not.toHaveBeenCalled()
+  expect(respondWithSuccess).toHaveBeenCalledTimes(1)
+})
+```
+
+</FullScreenCode>
+
+---
+
 ## Recap
 
 ---
 
-### A pragmatic front-end testing toolbelt
-
-<Appear>
+A pragmatic front-end testing toolbelt
 
 `[insert-your-framework]-testing-library`
 
-Cypress + `cypress-testing-library`
+Cypress
+
+---
+
+General tips for the pragmatic (front-end) tester
+
+---
+
+# tip #1 
+
+Use **Eslint**. Seriously, it is a testing tool.
+
+Then, turn off the stylistic rules and install Prettier.
+
+---
+
+# tip #2
+
+You found a bug? Great. 👍
+
+<Appear>
+
+Now, **write a test before** fixing it and watch it fail.
+
+Then fix it. Make sure the bug stays dead.
 
 </Appear>
+
+---
+
+# tip #3
+
+Having a hard time testing a piece of code? Do you need to mock half the app? That's a bad smell.
+
+<Appear>
+
+If it's hard to test, it's probably **doing too much**.
+
+If it's doing to much, it's probably hard to **understand**.
+
+If it's hard to understand, it's hard to **maintain**.
+
+</Appear>
+
+<Notes>
+  Testing higlights pieces of code that could use some refactor.
+
+If a test inflicts pain, we tend to blame the test - even when the root cause is in the code's design.
+</Notes>
 
 ---
 
@@ -548,8 +689,9 @@ I'd use Cypress to cover common happy paths.
 
 I'd add several **component tests** to critical parts and edge cases.
 
-</Appear>
+I'd also write **unit** tests to design small modules and functions.
 
+</Appear>
 
 ---
 
@@ -576,4 +718,3 @@ I'd add several **component tests** to critical parts and edge cases.
 👉 http://tiny.cc/holaluz-frontend 👈
 
 _(more openings at: [holaluz.com/jobs](https://holaluz.com/jobs))_
-

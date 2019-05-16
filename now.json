@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "alias": "the-pragmatic-frontend-tester",
+  "alias": "frontend-testing",
   "builds": [
     {
       "src": "package.json",

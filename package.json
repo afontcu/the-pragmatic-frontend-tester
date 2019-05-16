@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "mdx-deck deck.mdx",
+    "start:roadtrip": "mdx-deck roadtrip.mdx",
     "now-build": "mdx-deck build deck.mdx && cp -r images dist/"
   },
   "repository": {
