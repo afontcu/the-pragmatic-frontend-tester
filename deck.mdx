@@ -39,7 +39,7 @@ from the backend to the FE.
 
 <Appear>
 
-I have 15 minutes 🏃‍♂️
+I have ~30 minutes 🏃‍♂️
 
 <s>Why should we test?</s>
 
@@ -97,11 +97,7 @@ I'm sorry I'm gonna use a Counter component
 
 ---
 
-<FullScreenCode>
-
 ```jsx
-// Hi this is Vue
-
 const Counter = {
   render() {
     return (
@@ -120,33 +116,7 @@ const Counter = {
 }
 ```
 
-</FullScreenCode>
-
 ---
-
-<FullScreenCode>
-
-```jsx
-// Hi this is React
-
-const Counter = () => {
-  const [count, setCount] = useState(0)
-
-  const increment = () => setCount(count + 1)
-
-  return (
-    <div>
-      <p className="count">You clicked {count} times</p>
-      <button onClick={increment}>increment</button>
-    </div>
-  )
-}
-```
-
-</FullScreenCode>
-
----
-
 
 ```
 import { mount } from '@vue/test-utils'
@@ -164,17 +134,19 @@ test('increments value on click', () => {
   expect(paragraph.text()).toBe('You clicked 2 times')
 })
 ```
- 
+
 ---
 
-<FullScreenCode>
+thanks for coming to my Ted Talk.
+ 
+---
 
 ```jsx
 const Counter = {
   render() {
     return (
       <div>
-        <p className="count">You clicked {this.count} times</p>
+        <p class="count">You clicked {this.count} times</p>
         <button onClick={this.increment}>increment</button>
       </div>
     )
@@ -188,18 +160,14 @@ const Counter = {
 }
 ```
 
-</FullScreenCode>
-
 ---
-
-<FullScreenCode>
 
 ```jsx
 const Counter = {
   render() {
     return (
       <div>
-        <p className="count">You clicked {this.count} times</p>
+        <p class="count">You clicked {this.count} times</p>
         <button onClick={() => this.count++}>increment</button>
       </div>
     )
@@ -209,18 +177,14 @@ const Counter = {
 }
 ```
 
-</FullScreenCode>
-
 ---
-
-<FullScreenCode>
 
 ```jsx
 const Counter = {
   render() {
     return (
       <div>
-        <p className="counter">You clicked {this.count} times</p>
+        <p class="counter">You clicked {this.count} times</p>
         <button onClick={() => this.count++}>increment</button>
       </div>
     )
@@ -229,8 +193,6 @@ const Counter = {
   data: () => ({ count: 0 }),
 }
 ```
-
-</FullScreenCode>
 
 ---
 
@@ -266,21 +228,38 @@ _"Tests fail at random times"_
 
 <Appear>
 
-Your test does something its **consumers** won't.
+### 1. Your test does something code's consumers won't
 
-Your test breaks on **refactor**.
+Who consumes your code?
+
+1) End users
+
+2) Other devs
+
+3) Tests ❌
 
 </Appear>
-
 
 <Notes>
   If test is doing something different from user & developer, it becomes a third
   consumer.
   User: input interactions, output side effects
   Dev: input props, output elements, event
+</Notes>
 
-  Refactor: changing internal implementation without modifying external behavior.
+---
 
+
+<Appear>
+
+### 2. Your test breaks on refactor
+
+_"a change made to the internal structure of software [...] without changing its observable behavior."_ - Martin Fowler himself
+
+</Appear>
+
+
+<Notes>
   Exemple canviar nom de mètode.
 
   This undermines our confidence in testing. They fail at random times.
@@ -392,11 +371,78 @@ test('increments value on click', async () => {
 
 ---
 
+Yeah well, sure. It's just a Counter, so whatever.
+
+---
+
+```jsx
+import { mapActions, mapState } from 'vuex'
+
+const Counter = {
+  render() {
+    return (
+      <div>
+        <p class="count">You clicked {this.count} times</p>
+        <button onClick={this.increment}>increment</button>
+      </div>
+    )
+  },
+
+  computed: { ...mapState(['count']) },
+
+  methods: { ...mapActions(['increment']) },
+}
+```
+
+---
+
+```js
+const store = {
+  state: {
+    count: 0,
+  },
+
+  actions: {
+    increment: ({ commit, state }) =>
+      commit('SET_COUNT', state.count + 1),
+  },
+
+  mutations: {
+    SET_COUNT: (state, count) => {
+      state.count = count
+    },
+  },
+}
+```
+
+---
+
+```js
+import { render, fireEvent } from 'vue-testing-library'
+import CounterStore from './CounterStore.js'
+import store from './store.js'
+
+test('increments value on click', async () => {
+  const { getByText } = render(CounterStore, { store })
+
+  getByText(/you clicked 0 times/i)
+
+  const button = getByText(/increment/i)
+
+  await fireEvent.click(button)
+  await fireEvent.click(button)
+
+  getByText(/you clicked 2 times/i)
+})
+```
+
+---
+
 Let me show you something else.
 
 ---
 
-Something that turned writing tests... into a lovely activity.
+Something that turned writing tests... into a funny activity.
 
 ---
 
@@ -439,10 +485,12 @@ it('adds 3 todos', () => {
 ---
 
 
-```jsx
-<label data-testid="todolist-item">
-  {this.props.todo.title}
-</label>
+```html
+<div v-for="todo in todos" :key="todo.id">
+  <label data-testid="todolist-item">
+    {{ todo.title }}
+  </label>
+</div>
 ```
 
 ---
@@ -490,6 +538,8 @@ That's a pretty good question.
 
 <Notes>
   Cheaper to write and run.
+
+  Hit a smaller portion of your codebase.
 
   Better balance between cost, confidence and scope.
 
