@@ -9,7 +9,7 @@ export default {
     padding: '0 6rem',
   },
   pre: {
-    fontSize: '2rem',
+    fontSize: '2.2rem',
     borderRadius: '12px',
   },
   code: {
