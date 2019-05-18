@@ -1,10 +1,12 @@
 import { Image, Notes, Appear, Embed } from '@mdx-deck/components'  
 import { FullScreenCode, Invert } from 'mdx-deck/layouts'
-
 import future from '@mdx-deck/themes/future'
 import aspect from '@mdx-deck/themes/aspect'
 import highlight from '@mdx-deck/themes/syntax-highlighter-prism'
+
 import customTheme from './theme'
+
+import Waver from './Waver'
 
 export const themes = [future, aspect, highlight, customTheme]
 
@@ -12,11 +14,9 @@ export const themes = [future, aspect, highlight, customTheme]
 
 ---
 
-I wanted to talk about testing the front-end.
+I wanted to talk about **testing the front-end**.
 
 <Notes>
-Soy de Brasil.
-
   "Who's writing FE apps? Who's testing? Are you confiden? Would you ship
   without manually testing?"
 
@@ -26,12 +26,7 @@ from the backend to the FE.
 
 ---
 
-...and I wanted to do it following a pragmatic approach.
-
-<Notes>
-  Diapos en ingles porque estaba preparando la charla en ingles, no por postureo.
-  Bueno y por postureo un poco también.
-</Notes>
+...and I wanted to do it following a **pragmatic** approach.
 
 ---
 
@@ -59,17 +54,11 @@ Focused on front-end apps
 
 ---
 
-# 👋
+## 👋 Hi! I'm Adrià Fontcuberta
 
-## Adrià Fontcuberta
-
-Senior(?) Front-end Engineer @ Holaluz
+Senior(?) Front-end Engineer @ **Holaluz**
 
 `afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
-
-<Notes>
-  Holaluz: Electrica BCN tenemos 200.000 clientes donde vendemos energia verde y solo energia verde, y pretendemos crear una relación de confianza con nuestros clientes, algo un poco inusual en el sector como ya sabréis.
-</Notes>
 
 ---
 
@@ -212,13 +201,19 @@ TypeError: wrapper.vm.increment is not a function
 
 ---
 
-False negative.
+**False negative** error.
+
+<Appear>
+
+Our test is broken. Our component is not.
+
+</Appear>
 
 ---
 
-This undermines our confidence in testing.
+This undermines our **confidence** in testing.
 
-_"Tests fail at random times"_
+“omg tests fail at random times! 😭”
 
 ---
 
@@ -228,9 +223,7 @@ _"Tests fail at random times"_
 
 <Appear>
 
-### 1. Your test does something code's consumers won't
-
-Who consumes your code?
+Your test does something **code's consumers** won't.
 
 1) End users
 
@@ -245,6 +238,8 @@ Who consumes your code?
   consumer.
   User: input interactions, output side effects
   Dev: input props, output elements, event
+
+  wrapper.vm.increment
 </Notes>
 
 ---
@@ -252,17 +247,17 @@ Who consumes your code?
 
 <Appear>
 
-### 2. Your test breaks on refactor
+Your test breaks on **refactor**
 
-_"a change made to the internal structure of software [...] without changing its observable behavior."_ - Martin Fowler himself
+“a change made to the internal structure of software [...] without changing its observable behavior.”
 
 </Appear>
 
 
 <Notes>
-  Exemple canviar nom de mètode.
+  Martin Fowler.
 
-  This undermines our confidence in testing. They fail at random times.
+  Changing class name.
 </Notes>
 
 ---
@@ -274,6 +269,14 @@ _"a change made to the internal structure of software [...] without changing its
 > “The more your tests resemble the way your software is used, the more confidence they can give you.” - _Kent C. Dodds_
 
 </Appear>
+
+<Notes>
+  Simple and complete testing utilities.
+
+  IT IS NOT a test runner or framework.
+
+  Works with any environment that provides DOM APIs, such as Jest, Mocha + JSDOM, or a real browser
+</Notes>
 
 ---
 
@@ -371,7 +374,7 @@ test('increments value on click', async () => {
 
 ---
 
-Yeah well, sure. It's just a Counter, so whatever.
+Yeah well, sure. It's a simple `Counter`, so whatever.
 
 ---
 
@@ -438,15 +441,31 @@ test('increments value on click', async () => {
 
 ---
 
+Vuex is an **implementation detail**.
+
+<Notes>
+  I wouldn't suggest mocking store modules.
+</Notes>
+
+---
+
 Let me show you something else.
 
 ---
 
-Something that turned writing tests... into a funny activity.
+Something that turned writing tests...
+
+...into a **wonderful experience**.
 
 ---
 
-# Cypress ❤️
+# Cypress 💚
+
+<Appear>
+
+(and `cypress-testing-library`)
+
+</Appear>
 
 <Notes>
   Is an amazing tool to write end-to-end tests. It can test anything that runs
@@ -514,15 +533,71 @@ it('adds 3 todos', () => {
 
 XHR stubbing
 
-Custom commands (`cy.login()`)
 
-`cypress-testing-library`
+---
+
+```js
+it('starts with zero items', () => {
+  cy.server()
+  cy.route({ url: '/todos', response: [] })
+    .as('todos')
+  
+  cy.visit('/')
+  
+  cy.wait('@todos')
+    .its('response.body')
+    .should('have.length', 0)
+  
+  cy.getAllByTestId('todolist-item')
+    .should('have.length', 0)
+})
+```
+
+---
+
+```js
+it('shows a loading state if API request takes too long', () => {
+  cy.server()
+  cy.route({ url: '/todos', response: [], delay: 3000 })
+    .as('todos')
+
+  cy.visit('/')
+
+  cy.getByText(/loading.../i)
+
+  cy.wait('@todos') // wait for the network call to complete
+
+  cy.queryByText(/loading.../i).should('not.exist')
+})
+```
+
+---
+
+Custom commands
+
+---
+
+```js
+// /support/commands.js
+Cypress.Commands.add('addTodo', todo => {
+  cy.getByLabelText(/what needs to be done?/i, { log: false })
+    .type(todo, { log: false })
+    .type('{enter}', { log: false })
+  
+  cy.log('Inserted todo', todo)
+})
+
+// later in your tests...
+cy.addTodo('Improve tests by using Custom Commands')
+```
 
 ---
 
 Hey, Adri.
 
-Why would I write "component" tests if I can use Cypress?
+Why would I write "component" tests...
+
+...if I can use **Cypress**?
 
 ---
 
@@ -548,17 +623,25 @@ However, we are kinda getting there with tools such as Cypress.
 
 ---
 
+## The key
+
+Finding a good balance between **component-level** tests and **app-level** tests.
+
+Always focus on **confidence**.
+
+---
+
 ## Wrapping up
 
 <Appear>
 
-Write tests, but **not too many**. Focus on ROI.
+Write tests, but **not too many**.
 
-Use tools that resemble the way your software is used.
+Use tools that resemble the way your software is **used**.
 
-I'd use Cypress to cover common happy paths.
+Use Cypress to cover **common happy paths** and as development tool.
 
-I'd add several **component tests** to critical parts and edge cases.
+Add **component tests** to test critical parts and edge cases.
 
 </Appear>
 
@@ -577,15 +660,16 @@ I'd add several **component tests** to critical parts and edge cases.
 
 ---
 
-# Thank you! 👋
+# That's all! <Waver />
 
 `afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
 
----
+<br /><br />
 
-### oh btw we r hiring k thx bye 👋
+<Appear>
 
-👉 http://tiny.cc/holaluz-frontend 👈
+<small>
+  oh btw we r hiring k thx bye: <a href="tiny.cc/holaluz-frontend">tiny.cc/holaluz-frontend</a>
+</small>
 
-_(more openings at: [holaluz.com/jobs](https://holaluz.com/jobs))_
-
+</Appear>
