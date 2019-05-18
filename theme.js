@@ -12,4 +12,18 @@ export default {
     fontSize: '2rem',
     borderRadius: '12px',
   },
+  code: {
+    color: 'rgb(65,184,131)',
+  },
+  a: {
+    color: 'rgb(65,184,131)',
+  },
+  css: {
+    strong: {
+      textShadow: '-2px -2px black, -2px 2px black, 2px -2px black, 2px 2px black',
+      backgroundSize: '7px 1em',
+      boxShadow: 'inset 0 -0.15em rgb(17,17,17), inset 0 -0.21em rgb(65,184,131)',
+      display: 'inline',
+    }
+  }
 }
