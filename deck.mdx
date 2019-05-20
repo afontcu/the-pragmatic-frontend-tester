@@ -546,14 +546,15 @@ Stubbing responses enables you to control every aspect of the response, includin
 ```js
 it('starts with zero items', () => {
   cy.server()
-  cy.route({ url: '/todos', response: [] })
+  cy.route({
+      url: '/todos', // when hitting this URL...
+      response: [],  // send back this response object
+    })
     .as('todos')
   
   cy.visit('/')
   
-  cy.wait('@todos')
-    .its('response.body')
-    .should('have.length', 0)
+  cy.wait('@todos') // wait for the network call to complete
   
   cy.getAllByTestId('todolist-item')
     .should('have.length', 0)
