@@ -86,23 +86,23 @@ I'm sorry I'm gonna use a Counter component
 
 ---
 
-```jsx
-const Counter = {
-  render() {
-    return (
+```html
+<template>
       <div>
-        <p class="count">You clicked {this.count} times</p>
-        <button onClick={this.increment}>increment</button>
+    <p class="count">You clicked {{ count }} times</p>
+    <button @click="increment">increment</button>
       </div>
-    )
-  },
+</template>
 
+<script>
+export default {
   data: () => ({ count: 0 }),
 
   methods: {
     increment() { this.count++ },
   },
 }
+</script>
 ```
 
 ---
@@ -130,57 +130,57 @@ thanks for coming to my Ted Talk.
  
 ---
 
-```jsx
-const Counter = {
-  render() {
-    return (
+```html
+<template>
       <div>
-        <p class="count">You clicked {this.count} times</p>
-        <button onClick={this.increment}>increment</button>
+    <p class="count">You clicked {{ count }} times</p>
+    <button @click="increment">increment</button>
       </div>
-    )
-  },
+</template>
 
+<script>
+export default {
   data: () => ({ count: 0 }),
 
   methods: {
     increment() { this.count++ },
   },
 }
+</script>
 ```
 
 ---
 
-```jsx
-const Counter = {
-  render() {
-    return (
+```html
+<template>
       <div>
-        <p class="count">You clicked {this.count} times</p>
-        <button onClick={() => this.count++}>increment</button>
+    <p class="count">You clicked {{ count }} times</p>
+    <button @click="count++">increment</button>
       </div>
-    )
-  },
+</template>
 
+<script>
+export default {
   data: () => ({ count: 0 }),
 }
+</script>
 ```
 
 ---
 
-```jsx
-const Counter = {
-  render() {
-    return (
+```html
+<template>
       <div>
-        <p class="counter">You clicked {this.count} times</p>
-        <button onClick={() => this.count++}>increment</button>
+    <p class="counter">You clicked {{ count }} times</p>
+    <button @click="count++">increment</button>
       </div>
-    )
-  },
+</template>
 
+<script>
+export default {
   data: () => ({ count: 0 }),
 }
+</script>
 ```
 
 ---
