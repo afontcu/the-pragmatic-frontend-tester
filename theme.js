@@ -1,4 +1,10 @@
-export default {
+import { syntaxHighlighterPrism } from '@mdx-deck/themes'
+import style from 'react-syntax-highlighter/dist/styles/prism/okaidia'
+
+export default syntaxHighlighterPrism({
+  prism: {
+    style,
+  },
   googleFont: 'https://fonts.googleapis.com/css?family=Lora:400,700|Patua+One',
   font: 'Lora, Open Sans, sans-serif',
   heading: {
@@ -11,6 +17,7 @@ export default {
   pre: {
     fontSize: '2.2rem',
     borderRadius: '12px',
+    backgroundColor: 'inherit !important',
   },
   code: {
     color: 'rgb(65,184,131)',
@@ -24,6 +31,6 @@ export default {
       backgroundSize: '7px 1em',
       boxShadow: 'inset 0 -0.15em rgb(17,17,17), inset 0 -0.21em rgb(65,184,131)',
       display: 'inline',
-    }
+    },
   }
-}
+})
