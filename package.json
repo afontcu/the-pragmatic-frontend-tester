@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "mdx-deck deck.mdx",
-    "start:roadtrip": "mdx-deck roadtrip.mdx",
+    "start:meetup": "mdx-deck meetup.mdx --port 8081",
     "now-build": "mdx-deck build deck.mdx && cp -r images dist/"
   },
   "repository": {

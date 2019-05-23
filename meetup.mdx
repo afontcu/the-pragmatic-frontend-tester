@@ -1,0 +1,247 @@
+import { Image, Notes, Appear, Embed } from '@mdx-deck/components'  
+import { FullScreenCode, Invert } from 'mdx-deck/layouts'
+import future from '@mdx-deck/themes/future'
+import aspect from '@mdx-deck/themes/aspect'
+import highlight from '@mdx-deck/themes/syntax-highlighter-prism'
+
+import customTheme from './theme'
+
+import Waver from './Waver'
+
+export const themes = [future, aspect, highlight, customTheme]
+
+## Creating a culture of testing
+
+---
+
+## 👋 Hi! I'm Adrià Fontcuberta
+
+Senior(?) Front-end Engineer @ **Holaluz**
+
+`afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
+
+---
+
+Let's say...
+
+<Notes>
+  Let's say you are sold on the idea of testing. You know it's important, and
+  you are struggling selling it to your team, your managers or your colleagues.
+
+  What to do?
+</Notes>
+
+---
+
+Testing is a **cultural** challenge, not (only) a technical one.
+
+<Notes>
+  Feels hard at the beginning.
+
+  You need to provide solid foundations to keep it simple.
+</Notes>
+
+---
+
+Benefits might not be immediate.
+
+<Notes>
+  Specially from a business perspective
+</Notes>
+
+---
+
+## A few tips on creating a culture of testing
+
+---
+
+### Focus on quick wins
+
+Start small.
+
+<Notes>
+  ...and let other people achieve them.
+
+  Create a sense of ownership around testing.
+</Notes>
+
+---
+
+Did you catch a bug thanks to your test suite?
+
+<Appear>
+
+Make it public.
+
+Share it on Slack 🤷‍♀️
+
+</Appear>
+
+---
+
+### Create a pleasant onboarding process 
+
+<Appear>
+
+  Avoid configuration hell.
+  
+</Appear>
+
+<Notes>
+  I can't stress this enough.
+
+    2. We all know the frontend landscape, right.
+  Convincing them is gonna be hard enough without the configuration hassle.
+
+  Make it available to your team. Handle it for them.
+
+</Notes>
+
+---
+
+`READMEs` and `npm scripts` are your friends.
+
+<Notes>
+  Hide complexity.
+
+  I'm not only talking about tools such as Jest or ESLint.
+</Notes>
+
+---
+
+<Appear>
+
+Lint staged files.
+
+Run tests before pushing.
+
+CI pipeline integration.
+
+</Appear>
+
+---
+
+<Image src="images/pipeline.jpg" size="contain" />
+
+---
+
+### Someone reported a bug?
+
+<Appear>
+
+First, **write a test before** fixing it and watch it fail.
+
+Then, fix it.
+
+</Appear>
+
+<Notes>
+  Make sure the bug stays dead.
+
+  A simple way of knowing "what to test": What's already broken.
+
+  This is something you could try enforcing?
+</Notes>
+
+---
+
+### A list of bad ideas
+
+<Appear>
+
+"No PR without tests" policy.
+
+Mandating levels of code coverage.
+
+TDD.
+
+</Appear>
+
+---
+
+### A list of bad ideas
+
+"No PR without tests" policy.
+
+Mandating levels of code coverage.
+
+Forcing TDD.
+
+<Notes>
+  Fastests way to lose meaning. Others won't see value.
+
+  Test quality might also suffer.
+</Notes>
+
+---
+
+More tests !== Better quality
+
+---
+
+A word on "**omg testing is hard**"
+
+---
+
+<Image src="images/disabled.jpg" size="contain" />
+
+---
+
+what if...
+
+---
+
+...actually...
+
+---
+
+...your code is **hard** to test?
+
+# 👀
+
+---
+
+If it's hard to test, it's probably **doing too much**.
+
+<Appear>
+
+If it's doing too much, it's probably hard to **understand**.
+
+If it's hard to understand, it's hard to **maintain**.
+
+</Appear>
+
+<Notes>
+  Testing higlights pieces of code that could use some refactor.
+
+If a test inflicts pain, we tend to blame the test - even when the root cause is in the code's design.
+</Notes>
+
+---
+
+## Wrapping up
+
+<Appear>
+
+Focus on **quick wins**.
+
+Set an easy **onboarding**.
+
+Use existing bugs to know **what to test**.
+
+Sell testing as a tool to improve overall **code quality**.
+
+</Appear>
+
+---
+
+# That's all! <Waver />
+
+`afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
+
+<br /><br />
+
+<small>
+  oh btw we're hiring!<br />
+  <a href="http://holaluz.com/jobs">holaluz.com/jobs</a>
+</small>
