@@ -15,9 +15,21 @@ export default syntaxHighlighterPrism({
     padding: '0 6rem',
   },
   pre: {
-    fontSize: '2.2rem',
+    fontSize: '2.8rem',
     borderRadius: '12px',
     backgroundColor: 'inherit !important',
+  },
+  p: {
+    fontSize: '1.5em',
+  },
+  h1: {
+    fontSize: '1.5em',
+  },
+  h2: {
+    fontSize: '1.5em',
+  },
+  h3: {
+    fontSize: '1.5em',
   },
   code: {
     color: 'rgb(65,184,131)',
