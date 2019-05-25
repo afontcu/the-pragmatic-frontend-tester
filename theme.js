@@ -1,5 +1,5 @@
 import { syntaxHighlighterPrism } from '@mdx-deck/themes'
-import style from 'react-syntax-highlighter/dist/styles/prism/okaidia'
+import style from 'react-syntax-highlighter/dist/styles/prism/solarizedlight'
 
 export default syntaxHighlighterPrism({
   prism: {
@@ -15,34 +15,39 @@ export default syntaxHighlighterPrism({
     padding: '0 6rem',
   },
   pre: {
-    fontSize: '2.8rem',
+    fontSize: '4.5rem',
     borderRadius: '12px',
     backgroundColor: 'inherit !important',
   },
   p: {
-    fontSize: '1.5em',
+    fontSize: '2.5em',
   },
   h1: {
-    fontSize: '1.5em',
+    fontSize: '3em',
   },
   h2: {
-    fontSize: '1.5em',
+    fontSize: '3.8em',
   },
   h3: {
     fontSize: '1.5em',
   },
   code: {
     color: 'rgb(65,184,131)',
+    fontWeight: '700',
   },
   a: {
     color: 'rgb(65,184,131)',
   },
   css: {
     strong: {
-      textShadow: '-2px -2px black, -2px 2px black, 2px -2px black, 2px 2px black',
+      textShadow: '-2px -2px ##e7e7e7, -2px 2px ##e7e7e7, 2px -2px ##e7e7e7, 2px 2px ##e7e7e7',
       backgroundSize: '7px 1em',
-      boxShadow: 'inset 0 -0.15em rgb(17,17,17), inset 0 -0.21em rgb(65,184,131)',
+      boxShadow: 'inset 0 -0.15em #e7e7e7, inset 0 -0.21em rgb(65,184,131)',
       display: 'inline',
     },
-  }
+  },
+  colors: {
+    text: '#333',
+    background: '#e7e7e7',
+  },
 })
