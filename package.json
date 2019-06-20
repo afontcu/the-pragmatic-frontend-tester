@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/afontcu/the-pragmatic-frontend-tester#readme",
   "devDependencies": {
-    "mdx-deck": "^2.3.2"
+    "mdx-deck": "^2.4.0"
   }
 }
