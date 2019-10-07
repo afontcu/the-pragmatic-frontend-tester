@@ -21,19 +21,20 @@ export default syntaxHighlighterPrism({
     backgroundColor: 'inherit !important',
   },
   p: {
-    fontSize: '1.3em',
+    fontSize: '1.2em',
+    margin: '1em 0',
   },
   h1: {
     textTransform: 'inherit',
-    fontSize: '2.1em',
+    fontSize: '2em',
   },
   h2: {
     textTransform: 'inherit',
-    fontSize: '2.1em',
+    fontSize: '1.7em',
   },
   h3: {
     textTransform: 'inherit',
-    fontSize: '1.7em',
+    fontSize: '1.2em',
   },
   code: {
     color: 'rgb(65,184,131)',

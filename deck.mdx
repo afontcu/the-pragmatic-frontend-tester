@@ -12,7 +12,7 @@ export const themes = [future, aspect, customTheme]
 
 ---
 
-Testing the front-end shouldn't be that hard.
+**Testing the front end** shouldn't be that hard.
 
 ---
 
@@ -20,51 +20,34 @@ Testing the front-end shouldn't be that hard.
 
 <Appear>
 
-(disclaimer: If you pick the right tools and the right strategy)
+(if you pick the right tools and the right strategy)
 
 </Appear>
 
-
 ---
 
-I wanted to talk about **testing the front-end**.
-
-<Notes>
-  "Who's writing FE apps? Who's testing? Are you confiden? Would you ship
-  without manually testing?"
-
-Over the years, FE apps have increased in complexity, responsibility has moved 
-from the backend to the FE. 
-</Notes>
-
----
-
-...and I wanted to do it following a **pragmatic** approach.
-
----
-
-## Some Facts
+## Some facts
 
 <Appear>
 
-I have ~30 minutes 🏃‍♂️
-
 <s>Why should we test?</s>
 
-<s>Testing beyond avoiding regressions</s>
+<s>Testing as a design tool</s>
 
 <s>Visual regression testing</s>
 
-Focused on front-end apps
+This is my experience, so YMMV.
+
+I work on front-end applications.
 
 </Appear>
 
 <Notes>
   Speed things up.
 
-  Focus on avoiding regressions, not discovering best ways of developing a feature
+  Testing as a code design tool.
 
-  Frontend apps: Ni Node ni librerias ni otros contextos
+  Frontend apps: Ni Node ni librerias ni otros contexto
 </Notes>
 
 ---
@@ -73,7 +56,7 @@ Focused on front-end apps
 
 Senior(?) Front-end Engineer @ **Holaluz**
 
-Member of Testing Library
+Maintainer of **Testing Library**
 
 `afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
 
@@ -93,7 +76,7 @@ The Testing Pyramid™
 
 ---
 
-Focusing on the **confidence** each test provides?
+Keep things **pragmatic**?
 
 ---
 
@@ -133,6 +116,12 @@ export default {
 }
 </script>
 ```
+
+<Notes>
+
+Similar a Enzyme
+
+</Notes>
 
 ---
 
@@ -198,6 +187,22 @@ test('increments value on click', () => {
 ---
 
 thanks for coming to my Ted Talk.
+
+---
+
+is it wrong?
+
+---
+
+nah.
+
+---
+
+can we do better?
+
+---
+
+think so.
  
 ---
 
@@ -233,6 +238,31 @@ export default {
 <script>
 export default {
   data: () => ({ count: 0 }),
+
+  // methods: {
+  //   increment() { this.count++ },
+  // },
+}
+</script>
+```
+
+---
+
+```html
+<template>
+  <div class="counter">
+    <p>You clicked {{ count }} times</p>
+    <button @click="count++">increment</button>         
+  </div>
+</template>
+
+<script>
+export default {
+  data: () => ({ count: 0 }),
+
+  // methods: {
+  //   increment() { this.count++ },
+  // },
 }
 </script>
 ```
@@ -273,21 +303,19 @@ TypeError: wrapper.vm.increment is not a function
 
 ---
 
-**False negative** error
+**False positive** error
 
 <Notes>
 
 Our test is broken. Our component is not.
 
+This undermines our confidence in testing.
+
 </Notes>
 
 ---
 
-This undermines our **confidence** in testing.
-
-<Notes>
-  “omg tests fail at random times! 😭”
-</Notes>
+“tests fail at random times 😭 pls send help”
 
 ---
 
@@ -299,9 +327,24 @@ This undermines our **confidence** in testing.
 
 ---
 
-# 🤦‍♀️
+# Smell #1
 
-Test does something **end users** or **other devs** won't.
+Test breaks on a **refactor**.
+
+<Notes>
+
+changing the internal structure without changing its observable behavior.
+Martin Fowler.
+
+exemple: Changing class name.
+
+</Notes>
+
+---
+
+# Smell #2
+
+Test does something its **consumers** won't.
 
 <Notes>
   It becomes a third consumer. Needs to be taken into account.
@@ -311,29 +354,101 @@ Test does something **end users** or **other devs** won't.
 
 ---
 
-# 🤦‍♀️
+its... wat?
 
-Test breaks on **refactor**.
+---
+
+Your code has two users:
+
+<Appear>
+
+The end user 👥
+
+The developer 👩‍💻
+
+</Appear>
 
 <Notes>
-changing the internal structure without changing its observable behavior.
-Martin Fowler.
+   You are your own code’s consumer. Let it sink.
 
-  Changing class name.
-
-  Let me introduce you...
+   Nuestro código tiene que responder a les necesidades de ambos usuarios.
 </Notes>
 
 ---
 
-`dom-testing-library`
+input ➡ Function ➡ output
+
+---
+
+input ➡ Component ➡ output
+
+---
+
+**Inputs**: Props and interactions.
+
+**Outputs**: Side Effects and DOM elements.
+
+
+<Notes>
+  Clicking, typing
+  Props
+
+  HTTP requests, Cookies, `console.log()`, `this.$emit()`
+  an input, a div, whatever. Elements on the screen
+</Notes>
+
+---
+
+99% of times, that’s everything you want to focus on.
+
+---
+
+```js
+test('increments value on click', () => {
+  const paragraph = wrapper.find('.counter')
+
+  //...
+
+  wrapper.vm.increment()
+  wrapper.vm.increment()
+
+  // ...
+})
+```
+
+👥? 👩‍💻?
+
+---
+
+Achievement unlocked! 🚀 
+
+You earned yourself a third user. 🤦‍♀️
+
+<br /><br />
+<Appear>
+
+The Test™ 🔎
+
+</Appear>
+
+<Notes>
+  If a test relies on implementation details, then the test becomes a third 
+  user. And you’re gonna need to please it.
+</Notes>
+
+---
+
+### DOM Testing Library
+
+<br />
 
 <Appear>
 
 <p>
 “The more your tests resemble the way your software is used, the more confidence they can give you.”
 <br />
-<i>- Kent C. Dodds</i>
+<br />
+<small><i>- Kent C. Dodds</i></small>
 </p>
 
 </Appear>
@@ -348,13 +463,17 @@ Martin Fowler.
 
 ---
 
-`vue-testing-library`
+<div style={{textAlign:'left'}}>
 
-`react-testing-library`
+**React** Testing Library
 
-`svelte-testing-library`
+**Vue** Testing Library
 
-`angular-testing-library`
+**Svelte** Testing Library
+
+**Angular** Testing Library
+
+</div>
 
 ...
 
@@ -370,7 +489,7 @@ If you want to avoid impl details, use tools that help you out.
 ---
 
 ```js
-import { render, fireEvent } from 'vue-testing-library'
+import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
@@ -390,7 +509,7 @@ test('increments value on click', async () => {
 ---
 
 ```js
-import { render, fireEvent } from 'vue-testing-library'
+import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
@@ -410,7 +529,7 @@ test('increments value on click', async () => {
 ---
 
 ```js
-import { render, fireEvent } from 'vue-testing-library'
+import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
@@ -429,7 +548,7 @@ test('increments value on click', async () => {
 ---
 
 ```js
-import { render, fireEvent } from 'vue-testing-library'
+import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
@@ -449,7 +568,7 @@ test('increments value on click', async () => {
 ---
 
 ```js
-import { render, fireEvent } from 'vue-testing-library'
+import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
@@ -470,7 +589,7 @@ test('increments value on click', async () => {
 
 
 ```jsx
-import { render, fireEvent } from 'react-testing-library'
+import { render, fireEvent } from '@testing-library/react'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
@@ -493,9 +612,11 @@ test('increments value on click', async () => {
 
 ---
 
-(kinda) framework agnostic
+_kinda_ framework agnostic.
 
-# 👍
+closer to our users.
+
+farther from implementation details.
 
 ---
 
@@ -546,7 +667,7 @@ const store = {
 ---
 
 ```js
-import { render, fireEvent } from 'vue-testing-library'
+import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter.js'
 
 
@@ -567,7 +688,7 @@ test('increments value on click', async () => {
 ---
 
 ```js
-import { render, fireEvent } from 'vue-testing-library'
+import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter.js'
 import store from './store.js'
 
@@ -595,11 +716,18 @@ Vuex is an **implementation detail**.
 
 ---
 
-https://twitter.com/_ericelliott/status/1161847491010146304
+"Hm, that's an integration test because potatoes"
+
+"Well, actually, you are writing unit tests, then"
 
 ---
 
-tale of three users?
+<p>
+“a unit is whatever a unit test can test easily.”
+<br />
+<br />
+<small><i>- Michael Feathers</i></small>
+</p>
 
 ---
 
@@ -642,13 +770,13 @@ a Todo app
 
 ---
 
-`cypress-testing-library`
+**Cypress** Testing Library
 
 ---
 
 ```js
-it('adds 3 todos', () => {
-  cy.visit('/')                                     
+test('adds 3 todos', () => {
+  cy.visit('/')                                      
 
   
   
@@ -666,10 +794,10 @@ it('adds 3 todos', () => {
 ---
 
 ```js
-it('adds 3 todos', () => {
+test('adds 3 todos', () => {
   cy.visit('/')
 
-  cy.getByLabelText(/what needs to be done/i)       
+  cy.findByLabelText(/what needs to be done/i)       
     
   
 
@@ -685,10 +813,10 @@ it('adds 3 todos', () => {
 ---
 
 ```js
-it('adds 3 todos', () => {
+test('adds 3 todos', () => {
   cy.visit('/')
 
-  cy.getByLabelText(/what needs to be done/i)
+  cy.findByLabelText(/what needs to be done/i)
     .type('follow @afontcu_ on Twitter{enter}')
     .type('learn testing with Cypress{enter}')
     .type('stop making demos with Todo apps{enter}')
@@ -704,18 +832,18 @@ it('adds 3 todos', () => {
 ---
 
 ```js
-it('adds 3 todos', () => {
+test('adds 3 todos', () => {
   cy.visit('/')
 
-  cy.getByLabelText(/what needs to be done/i)
+  cy.findByLabelText(/what needs to be done/i)
     .type('follow @afontcu_ on Twitter{enter}')
     .type('learn testing with Cypress{enter}')
     .type('stop making demos with Todo apps{enter}')
 
-  cy.getByText('follow @afontcu_ on Twitter')
-    .getByText('learn testing with Cypress')
-    .getByText('stop making demos with Todo apps')
-  cy.getByLabelText(/what needs to be done/i)
+  cy.findByText('follow @afontcu_ on Twitter')
+    .findByText('learn testing with Cypress')
+    .findByText('stop making demos with Todo apps')
+  cy.findByLabelText(/what needs to be done/i)
     .should('be.empty')
 })
 ```
@@ -737,7 +865,7 @@ Stubbing responses enables you to control every aspect of the response, includin
 ---
 
 ```js
-it('warns user on empty response', () => {     
+test('warns user on empty response', () => {     
 
   
   
@@ -756,7 +884,7 @@ it('warns user on empty response', () => {
 ---
 
 ```js
-it('warns user on empty response', () => {
+test('warns user on empty response', () => {
   cy.server()        // Hey Cypress,           
   
   
@@ -775,7 +903,7 @@ it('warns user on empty response', () => {
 ---
 
 ```js
-it('warns user on empty response', () => {
+test('warns user on empty response', () => {
   cy.server()        // Hey Cypress,
   cy.route({
     url: '/todos',   // on a /todos request...
@@ -794,7 +922,7 @@ it('warns user on empty response', () => {
 ---
 
 ```js
-it('warns user on empty response', () => {
+test('warns user on empty response', () => {
   cy.server()        // Hey Cypress,
   cy.route({
     url: '/todos',   // on a /todos request...
@@ -813,26 +941,7 @@ it('warns user on empty response', () => {
 ---
 
 ```js
-it('warns user on empty response', () => {
-  cy.server()        // Hey Cypress,
-  cy.route({
-    url: '/todos',   // on a /todos request...
-    response: [],    // send back this response
-  })
-  .as('todos')
-  
-  cy.visit('/')
-  
-  
-
- 
-})
-```
-
----
-
-```js
-it('warns user on empty response', () => {
+test('warns user on empty response', () => {
   cy.server()        // Hey Cypress,
   cy.route({
     url: '/todos',   // on a /todos request...
@@ -842,7 +951,7 @@ it('warns user on empty response', () => {
   
   cy.visit('/')
   
-  cy.wait('@todos') // wait for the call
+  
 
  
 })
@@ -851,7 +960,7 @@ it('warns user on empty response', () => {
 ---
 
 ```js
-it('warns user on empty response', () => {
+test('warns user on empty response', () => {
   cy.server()        // Hey Cypress,
   cy.route({
     url: '/todos',   // on a /todos request...
@@ -863,14 +972,33 @@ it('warns user on empty response', () => {
   
   cy.wait('@todos') // wait for the call
 
-  cy.getByText('No TODOs found!')
+ 
 })
 ```
 
 ---
 
 ```js
-it('shows a loading state if API takes too long', () => {
+test('warns user on empty response', () => {
+  cy.server()        // Hey Cypress,
+  cy.route({
+    url: '/todos',   // on a /todos request...
+    response: [],    // send back this response
+  })
+  .as('todos')
+  
+  cy.visit('/')
+  
+  cy.wait('@todos') // wait for the call
+
+  cy.findByText('No TODOs found!')
+})
+```
+
+---
+
+```js
+test('shows a loading state if API takes too long', () => {
   cy.server()
   cy.route({ url: '/todos', response: [], delay: 3000 })
     .as('todos')
@@ -889,14 +1017,14 @@ it('shows a loading state if API takes too long', () => {
 ---
 
 ```js
-it('shows a loading state if API takes too long', () => {
+test('shows a loading state if API takes too long', () => {
   cy.server()
   cy.route({ url: '/todos', response: [], delay: 3000 })
     .as('todos')
 
   cy.visit('/')
 
-  cy.getByText(/loading.../i)
+  cy.findByText(/loading.../i)
 
   
 
@@ -908,14 +1036,14 @@ it('shows a loading state if API takes too long', () => {
 ---
 
 ```js
-it('shows a loading state if API takes too long', () => {
+test('shows a loading state if API takes too long', () => {
   cy.server()
   cy.route({ url: '/todos', response: [], delay: 3000 })
     .as('todos')
 
   cy.visit('/')
 
-  cy.getByText(/loading.../i)
+  cy.findByText(/loading.../i)
 
   cy.wait('@todos')
 
@@ -962,14 +1090,20 @@ However, we are kinda getting there with tools such as Cypress.
 
 ---
 
-## The key point
+## A word of caution
 
-Always focus on the **confidence** they provide.
+<Appear>
+
+Front-end development is still **software development** (wait what).
+
+Bear software principles in mind.
+
+</Appear>
 
 <Notes>
+  Coupling. Desacoplarse del framework?
 
-Finding a good balance between component-level tests and app-level tests.
-
+  Escribir tests es diseñar software.
 </Notes>
 
 ---
@@ -982,18 +1116,16 @@ Write tests, but **not too many**.
 
 Use tools that resemble the way your software is **used**.
 
-Use Cypress to cover **common happy paths**.
-
-Add **component tests** to test critical parts and edge cases.
+**Combine** component-level testing with e2e.
 
 </Appear>
 
 <Notes>
-  1) Focus on ROI. Don't overthink things such as the testing pyramid.
+  Focus on ROI. Don't overthink things such as the testing pyramid.
 
-  3) Cypress is also an amazing development tool.
+  Cypress is also an amazing development tool.
 
-  4) Component tests also to complex components.
+  Component tests also to complex components.
 </Notes>
 
 
@@ -1001,37 +1133,22 @@ Add **component tests** to test critical parts and edge cases.
 
 ## To learn more
 
-<p style={{display: 'flex', fontSize: '2em', textAlign:'left'}}>
-  <span style={{textAlign: 'right', marginRight: '1em'}}>Slides:</span>
-  <span><a href="https://frontend-testing.now.sh">frontend-testing.now.sh</a></span>
-</p>
 
-<p style={{display: 'flex', fontSize: '2em', textAlign:'left'}}>
-  <span style={{textAlign: 'right', marginRight: '1em'}}>Awesome Learning:</span>
-  <span><a href="https://github.com/afontcu/awesome-learning#testing">github.com/afontcu/awesome-learning</a></span>
-</p>
+  <a href="https://github.com/afontcu/awesome-learning#testing">github.com/afontcu/awesome-learning</a>
 
-<p style={{display: 'flex', fontSize: '2em', textAlign:'left'}}>
-  <span style={{textAlign: 'right', marginRight: '1em'}}>Cypress docs:</span>
-  <span><a href="https://docs.cypress.io">docs.cypress.io</a></span>
-</p>
-
-<p style={{display: 'flex', fontSize: '2em', textAlign:'left'}}>
-  <span style={{textAlign: 'right', marginRight: '1em'}}>Testing library docs:</span>
-  <span><a href="http://testing-library.com">testing-library.com</a></span>
-</p>
+  <a href="http://testing-library.com">testing-library.com</a>
 
 ---
 
 # That's all! <Waver />
 
-`afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
-
-<br /><br />
+<small>afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontcu_ &nbsp;&nbsp;·&nbsp;&nbsp; npx afontcu</small>
 
 <Appear>
 
-oh btw we're hiring! come test components with me:<br />
+I have stickers!
+
+oh and btw we're hiring! come test components with me:<br />
   <a href="http://holaluz.com/jobs">holaluz.com/jobs</a>
 
 </Appear>
