@@ -12,17 +12,17 @@ export const themes = [future, aspect, customTheme]
 
 ---
 
-**Testing the front end** shouldn't be that hard.
+**Testing the front end** shouldn't be that hard...
 
 ---
 
 ...and it isn't _that_ hard
 
-<Appear>
+<Notes>
 
-(if you pick the right tools and the right strategy)
+Mindset, strategy and tools
 
-</Appear>
+</Notes>
 
 ---
 
@@ -61,9 +61,8 @@ Maintainer of **Testing Library**
 `afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
 
 <Notes>
-Testing Library: Simple and complete testing utilities that encourage good testing practices
-
-What's the first thing that comes to your mind when talking about software testing?
+Testing Library: un proyecto open source que ofrece varias opciones
+para testear los principales frameworks front-end del momento.
 </Notes>
 
 ---
@@ -76,7 +75,7 @@ The Testing Pyramid™
 
 ---
 
-Keep things **pragmatic**?
+Let's keep things **pragmatic**, shall we?
 
 ---
 
@@ -117,12 +116,6 @@ export default {
 </script>
 ```
 
-<Notes>
-
-Similar a Enzyme
-
-</Notes>
-
 ---
 
 ```
@@ -141,6 +134,13 @@ test('increments value on click', () => {
   
 })
 ```
+
+<Notes>
+
+Similar a Enzyme
+
+</Notes>
+
 
 ---
 
@@ -299,10 +299,6 @@ TypeError: wrapper.vm.increment is not a function
 
 ---
 
-<Image src="images/kalisi.jpg" size="cover" />
-
----
-
 **False positive** error
 
 <Notes>
@@ -344,7 +340,7 @@ exemple: Changing class name.
 
 # Smell #2
 
-Test does something its **consumers** won't.
+Test becomes a different **consumer**.
 
 <Notes>
   It becomes a third consumer. Needs to be taken into account.
@@ -354,7 +350,7 @@ Test does something its **consumers** won't.
 
 ---
 
-its... wat?
+a... what?
 
 ---
 
@@ -384,9 +380,13 @@ input ➡ Component ➡ output
 
 ---
 
+<Appear>
+
 **Inputs**: Props and interactions.
 
 **Outputs**: Side Effects and DOM elements.
+
+</Appear>
 
 
 <Notes>
@@ -521,6 +521,26 @@ test('increments value on click', async () => {
 
   
   
+
+  
+})
+```
+
+---
+
+```js
+import { render, fireEvent } from '@testing-library/vue'
+import Counter from './Counter'
+
+test('increments value on click', async () => {
+  const { getByText } = render(Counter)                          
+
+  getByText(/you clicked 0 times/i)                              
+
+  const button = getByText(/increment/i)
+
+
+
 
   
 })
@@ -719,6 +739,12 @@ Vuex is an **implementation detail**.
 "Hm, that's an integration test because potatoes"
 
 "Well, actually, you are writing unit tests, then"
+
+<Notes>
+  Feedback loops as short as possible.
+
+  (again, focused on regression, not code design)
+</Notes>
 
 ---
 
