@@ -1,5 +1,5 @@
 import { Image, Notes, Appear, Embed } from '@mdx-deck/components'  
-import { FullScreenCode, Invert } from 'mdx-deck/layouts'
+import { FullScreenCode, Invert, Split } from 'mdx-deck/layouts'
 import future from '@mdx-deck/themes/future'
 import aspect from '@mdx-deck/themes/aspect'
 
@@ -52,13 +52,19 @@ I work on front-end applications.
 
 ---
 
-## 👋 Hi! I'm Adrià Fontcuberta
+## <Waver /> Hi!
 
-Senior(?) Front-end Engineer @ **Holaluz**
+I'm Adrià Fontcuberta
+
+<Appear>
+
+Senior(?) Software Engineer @ **Holaluz**
 
 Maintainer of **Testing Library**
 
-`afontcu.dev` &nbsp;&nbsp;·&nbsp;&nbsp; `@afontcu_` &nbsp;&nbsp;·&nbsp;&nbsp; `npx afontcu`
+<small>afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontcu_ &nbsp;&nbsp;·&nbsp;&nbsp; npx afontcu</small>
+
+</Appear>
 
 <Notes>
 Testing Library: un proyecto open source que ofrece varias opciones
@@ -269,33 +275,22 @@ export default {
 
 ---
 
-```html
-<template>
-  <div class="counter">
-    <p>You clicked {{ count }} times</p>
-    <button @click="count++">increment</button>         
-  </div>
-</template>
 
-<script>
-export default {
-  data: () => ({ count: 0 }),
-}
-</script>
-```
-
----
-
-<span style={{ fontSize: '11rem' }}>❌</span>
+<span style={{ fontSize: '5rem' }}>❌</span>
 
 ```py
 Expected: "You clicked 0 times"
 Received: "You clicked 0 timesincrement"
 ```
+<br />
+<br />
+<span style={{ fontSize: '5rem' }}>❌</span>
 
-```py
-TypeError: wrapper.vm.increment is not a function
+```css
+TypeError:
+wrapper.vm.increment is not a function
 ```
+
 
 ---
 
@@ -331,6 +326,8 @@ Test breaks on a **refactor**.
 
 changing the internal structure without changing its observable behavior.
 Martin Fowler.
+
+if the external behavior does not change, why would a test fail?
 
 exemple: Changing class name.
 
@@ -434,18 +431,21 @@ The Test™ 🔎
 <Notes>
   If a test relies on implementation details, then the test becomes a third 
   user. And you’re gonna need to please it.
+
+  How can we write resilient tests that do not depend on impl details and keep
+  us away from unlocking a third user?
 </Notes>
 
 ---
 
-### DOM Testing Library
+## DOM Testing Library
 
 <br />
 
 <Appear>
 
 <p>
-“The more your tests resemble the way your software is used, the more confidence they can give you.”
+“The more your tests resemble <b>the way your software is used</b>, the more confidence they can give you.”
 <br />
 <br />
 <small><i>- Kent C. Dodds</i></small>
@@ -515,7 +515,7 @@ import Counter from './Counter'
 test('increments value on click', async () => {
   const { getByText } = render(Counter)                          
 
-  getByText(/you clicked 0 times/i)                              
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()     
 
   
 
@@ -535,7 +535,7 @@ import Counter from './Counter'
 test('increments value on click', async () => {
   const { getByText } = render(Counter)                          
 
-  getByText(/you clicked 0 times/i)                              
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()     
 
   const button = getByText(/increment/i)
 
@@ -555,7 +555,7 @@ import Counter from './Counter'
 test('increments value on click', async () => {
   const { getByText } = render(Counter)                          
 
-  getByText(/you clicked 0 times/i)                              
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()     
 
   const button = getByText(/increment/i)
 
@@ -574,36 +574,24 @@ import Counter from './Counter'
 test('increments value on click', async () => {
   const { getByText } = render(Counter)                          
 
-  getByText(/you clicked 0 times/i)                              
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()     
 
   const button = getByText(/increment/i)
 
   await fireEvent.click(button) 
   await fireEvent.click(button) 
 
-  getByText(/you clicked 2 times/i)
+  expect(getByText(/you clicked 2 times/i)).toBeTruthy()     
 })
 ```
 
----
+<Notes>
 
-```js
-import { render, fireEvent } from '@testing-library/vue'
-import Counter from './Counter'
+Query as a user would.
 
-test('increments value on click', async () => {
-  const { getByText } = render(Counter)
+Act as a user would.
 
-  getByText(/you clicked 0 times/i)      // query as a user would
-
-  const button = getByText(/increment/i) // query as a user would
-
-  await fireEvent.click(button)          // act as a user would
-  await fireEvent.click(button)          // act as a user would
-
-  getByText(/you clicked 2 times/i)      // query as a user would
-})
-```
+</Notes>
 
 ---
 
@@ -613,16 +601,16 @@ import { render, fireEvent } from '@testing-library/react'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(<Counter />)
+  const { getByText } = render(<Counter />)                      
 
-  getByText(/you clicked 0 times/i)      // query as a user would
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
 
-  const button = getByText(/increment/i) // query as a user would
+  const button = getByText(/increment/i)
 
-  await fireEvent.click(button)          // act as a user would
-  await fireEvent.click(button)          // act as a user would
+  await fireEvent.click(button) 
+  await fireEvent.click(button) 
 
-  getByText(/you clicked 2 times/i)      // query as a user would
+  expect(getByText(/you clicked 2 times/i)).toBeTruthy() 
 })
 ```
 
@@ -632,11 +620,11 @@ test('increments value on click', async () => {
 
 ---
 
-_kinda_ framework agnostic.
+_Kinda_ framework agnostic.
 
-closer to our users.
+Closer to our users.
 
-farther from implementation details.
+Farther from implementation details.
 
 ---
 
@@ -666,7 +654,7 @@ export default {
 ---
 
 ```js
-const store = {
+export const store = {
   state: {
     count: 0,
   },
@@ -749,7 +737,7 @@ Vuex is an **implementation detail**.
 ---
 
 <p>
-“a unit is whatever a unit test can test easily.”
+“A unit is whatever a unit test can test easily.”
 <br />
 <br />
 <small><i>- Michael Feathers</i></small>
@@ -802,7 +790,7 @@ a Todo app
 
 ```js
 test('adds 3 todos', () => {
-  cy.visit('/')                                      
+  cy.visit('/')                                     
 
   
   
@@ -823,7 +811,7 @@ test('adds 3 todos', () => {
 test('adds 3 todos', () => {
   cy.visit('/')
 
-  cy.findByLabelText(/what needs to be done/i)       
+  cy.findByLabelText(/what needs to be done/i)      
     
   
 
@@ -891,7 +879,7 @@ Stubbing responses enables you to control every aspect of the response, includin
 ---
 
 ```js
-test('warns user on empty response', () => {     
+test('warns user on empty response', () => {   
 
   
   
