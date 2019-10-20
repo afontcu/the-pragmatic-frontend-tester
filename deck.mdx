@@ -745,379 +745,40 @@ Vuex is an **implementation detail**.
 
 ---
 
-Let me show you something else.
-
-<Notes>
-
-Something that turned writing tests into a wonderful experience.
-
-It's fun.
-
-</Notes>
-
----
-
-# Cypress 💚
-
-<Notes>
-  Is an amazing tool to write end-to-end tests. It can test anything that runs
-  on a browser (including Vue).
-
-  It comes fully packed with: mocking tools, assertions, helpers...
-
-  Focused on DX. Meant to be used during the development cycle.
-</Notes>
-
----
-
-Let's see a day-to-day example...
-
-<Notes>
-  The kind of component we develop here at Holaluz daily.
-</Notes>
-
----
-
-a Todo app
-
-# 🤷‍♀️
-
----
-
-**Cypress** Testing Library
-
----
-
-```js
-test('adds 3 todos', () => {
-  cy.visit('/')                                     
-
-  
-  
-  
-  
-  
-
-
-
-
-  
-})
-```
-
----
-
-```js
-test('adds 3 todos', () => {
-  cy.visit('/')
-
-  cy.findByLabelText(/what needs to be done/i)      
-    
-  
-
-
-
-
-  
-  
-  
-})
-```
-
----
-
-```js
-test('adds 3 todos', () => {
-  cy.visit('/')
-
-  cy.findByLabelText(/what needs to be done/i)
-    .type('follow @afontcu_ on Twitter{enter}')
-    .type('learn testing with Cypress{enter}')
-    .type('stop making demos with Todo apps{enter}')
-  
-  
-
-
-
-  
-})
-```
-
----
-
-```js
-test('adds 3 todos', () => {
-  cy.visit('/')
-
-  cy.findByLabelText(/what needs to be done/i)
-    .type('follow @afontcu_ on Twitter{enter}')
-    .type('learn testing with Cypress{enter}')
-    .type('stop making demos with Todo apps{enter}')
-
-  cy.findByText('follow @afontcu_ on Twitter')
-    .findByText('learn testing with Cypress')
-    .findByText('stop making demos with Todo apps')
-  cy.findByLabelText(/what needs to be done/i)
-    .should('be.empty')
-})
-```
-
-<Notes>
-  Split in 3: Arrange, Act, Assert.
-</Notes>
-
----
-
-## A Cool Cypress Feature
-
-XHR Stubbing
-
-<Notes>
-Stubbing responses enables you to control every aspect of the response, including the response body, the status, headers, and even network delay
-</Notes>
-
----
-
-```js
-test('warns user on empty response', () => {   
-
-  
-  
-  
-  
-   
- 
- 
- 
-
- 
- 
-})
-```
-
----
-
-```js
-test('warns user on empty response', () => {
-  cy.server()        // Hey Cypress,           
-  
-  
-  
-  
-    
-  
- 
- 
- 
- 
- 
-})
-```
-
----
-
-```js
-test('warns user on empty response', () => {
-  cy.server()        // Hey Cypress,
-  cy.route({
-    url: '/todos',   // on a /todos request...
-    response: [],    // send back this response
-  })
-    
-  
- 
- 
- 
-
- 
-})
-```
-
----
-
-```js
-test('warns user on empty response', () => {
-  cy.server()        // Hey Cypress,
-  cy.route({
-    url: '/todos',   // on a /todos request...
-    response: [],    // send back this response
-  })
-  .as('todos')
-  
- 
- 
- 
-
- 
-})
-```
-
----
-
-```js
-test('warns user on empty response', () => {
-  cy.server()        // Hey Cypress,
-  cy.route({
-    url: '/todos',   // on a /todos request...
-    response: [],    // send back this response
-  })
-  .as('todos')
-  
-  cy.visit('/')
-  
-  
-
- 
-})
-```
-
----
-
-```js
-test('warns user on empty response', () => {
-  cy.server()        // Hey Cypress,
-  cy.route({
-    url: '/todos',   // on a /todos request...
-    response: [],    // send back this response
-  })
-  .as('todos')
-  
-  cy.visit('/')
-  
-  cy.wait('@todos') // wait for the call
-
- 
-})
-```
-
----
-
-```js
-test('warns user on empty response', () => {
-  cy.server()        // Hey Cypress,
-  cy.route({
-    url: '/todos',   // on a /todos request...
-    response: [],    // send back this response
-  })
-  .as('todos')
-  
-  cy.visit('/')
-  
-  cy.wait('@todos') // wait for the call
-
-  cy.findByText('No TODOs found!')
-})
-```
-
----
-
-```js
-test('shows a loading state if API takes too long', () => {
-  cy.server()
-  cy.route({ url: '/todos', response: [], delay: 3000 })
-    .as('todos')
-
-  
-
-  
-
-  
-
-  
-    
-})
-```
-
----
-
-```js
-test('shows a loading state if API takes too long', () => {
-  cy.server()
-  cy.route({ url: '/todos', response: [], delay: 3000 })
-    .as('todos')
-
-  cy.visit('/')
-
-  cy.findByText(/loading.../i)
-
-  
-
-  
-  
-})
-```
-
----
-
-```js
-test('shows a loading state if API takes too long', () => {
-  cy.server()
-  cy.route({ url: '/todos', response: [], delay: 3000 })
-    .as('todos')
-
-  cy.visit('/')
-
-  cy.findByText(/loading.../i)
-
-  cy.wait('@todos')
-
-  cy.queryByText(/loading.../i)
-    .should('not.exist')
-})
-```
-
----
-
-Hey, Adri.
-
-Why would I write "component" tests...
-
-...if I can use **Cypress**?
-
----
-
-That's a pretty good question.
-
----
-
-Component tests tend to be...
-
-<Appear>
-
-Cheaper
-
-Faster
-
-Focused on simpler problems
-
-</Appear>
-
-<Notes>
-  Cheaper to write and run.
-
-  Hit a smaller portion of your codebase.
-
-  Better balance between cost, confidence and scope.
-
-However, we are kinda getting there with tools such as Cypress.
-</Notes>
-
----
-
 ## A word of caution
 
-<Appear>
+---
+
+“Testing is hard”
+
+<Notes>
+hard to test --> doing too much and too coupled
+
+doing too much --> hard to understand
+
+hard to understand --> hard to maintain
+
+hard to maintain --> one could argue that unmaintainable code is not good code.
+
+we blame the test instead of blaming poorly designed code.
+
+</Notes>
+
+---
 
 Front-end development is still **software development** (wait what).
+
+<Appear>
 
 Bear software principles in mind.
 
 </Appear>
 
 <Notes>
-  Coupling. Desacoplarse del framework?
+  Coupling. Decouple from framework?
 
-  Escribir tests es diseñar software.
+  Think of testing not only as a regression testing tool, but as a way to
+  achieve a better design for your code.
 </Notes>
 
 ---
@@ -1130,14 +791,14 @@ Write tests, but **not too many**.
 
 Use tools that resemble the way your software is **used**.
 
-**Combine** component-level testing with e2e.
+Testing is hard? **Blame the code**.
 
 </Appear>
 
 <Notes>
   Focus on ROI. Don't overthink things such as the testing pyramid.
 
-  Cypress is also an amazing development tool.
+  Avoid the test user.
 
   Component tests also to complex components.
 </Notes>
@@ -1148,21 +809,16 @@ Use tools that resemble the way your software is **used**.
 ## To learn more
 
 
-  <a href="https://github.com/afontcu/awesome-learning#testing">github.com/afontcu/awesome-learning</a>
+  <a href="https://github.com/afontcu/awesome-learning#testing">www.github.com/afontcu/awesome-learning</a>
 
-  <a href="http://testing-library.com">testing-library.com</a>
+  <a href="http://testing-library.com">www.testing-library.com</a>
 
 ---
 
 # That's all! <Waver />
 
-<small>afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontcu_ &nbsp;&nbsp;·&nbsp;&nbsp; npx afontcu</small>
+afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontcu_ &nbsp;&nbsp;·&nbsp;&nbsp; npx afontcu
 
-<Appear>
-
-I have stickers!
-
-oh and btw we're hiring! come test components with me:<br />
-  <a href="http://holaluz.com/jobs">holaluz.com/jobs</a>
-
-</Appear>
+<small>
+(I have stickers!)
+</small>
