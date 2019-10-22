@@ -6,4 +6,4 @@ In this talk we'll discuss best practices about what to test, how to test it, an
 
 ---
 
-"Production version" available here: http://the-pragmatic-frontend-tester.now.sh/
+"Production version" available here: https://frontend-testing.now.sh
