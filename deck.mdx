@@ -30,15 +30,13 @@ Mindset, strategy and tools
 
 <Appear>
 
+60 slides, meaning 2.4 slides per minute
+
 <s>Why should we test?</s>
 
 <s>Testing as a design tool</s>
 
-<s>Visual regression testing</s>
-
 This is my experience, so YMMV.
-
-I work on front-end applications.
 
 </Appear>
 
@@ -47,7 +45,7 @@ I work on front-end applications.
 
   Testing as a code design tool.
 
-  Frontend apps: Ni Node ni librerias ni otros contexto
+  Frontend apps: Ni Node ni librerias ni otros contextos
 </Notes>
 
 ---
@@ -77,15 +75,23 @@ The Testing Pyramid™
 
 ---
 
-<Image src="images/drake-nah.png" size="contain" />
+<Invert>
+
+<Image src="images/drake-nah.jpg" size="contain" />
+
+</Invert>
 
 ---
 
-Let's keep things **pragmatic**, shall we?
+Let's keep things **pragmatic**
 
 ---
+
+<Invert>
 
 <Image src="images/drake-yea.jpg" size="contain" />
+
+</Invert>
 
 ---
 
@@ -256,8 +262,8 @@ export default {
 
 ```html
 <template>
-  <div class="counter">
-    <p>You clicked {{ count }} times</p>
+  <div>
+    <p class="count">You clicked {{ count }} times</p>
     <button @click="count++">increment</button>         
   </div>
 </template>
@@ -278,9 +284,9 @@ export default {
 
 <span style={{ fontSize: '5rem' }}>❌</span>
 
-```py
-Expected: "You clicked 0 times"
-Received: "You clicked 0 timesincrement"
+```css
+find did not return .counter,
+cannot call text() on empty Wrapper
 ```
 <br />
 <br />
@@ -298,6 +304,18 @@ wrapper.vm.increment is not a function
 
 <Notes>
 
+or, simply put...:
+
+</Notes>
+
+---
+
+“tests fail at random times”
+
+(╯°□°)╯︵ ┻━┻ 
+
+<Notes>
+
 Our test is broken. Our component is not.
 
 This undermines our confidence in testing.
@@ -306,7 +324,7 @@ This undermines our confidence in testing.
 
 ---
 
-“tests fail at random times 😭 pls send help”
+┬─┬ノ(ಠ_ಠノ)
 
 ---
 
@@ -634,8 +652,8 @@ Farther from implementation details.
 
 ```html
 <template>
-  <div class="counter">
-    <p>You clicked {{ count }} times</p>
+  <div>
+    <p class="counter">You clicked {{ count }} times</p>
     <button @click="increment">increment</button>
   </div>
 </template>
@@ -818,7 +836,3 @@ Testing is hard? **Blame the code**.
 # That's all! <Waver />
 
 afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontcu_ &nbsp;&nbsp;·&nbsp;&nbsp; npx afontcu
-
-<small>
-(I have stickers!)
-</small>
