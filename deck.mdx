@@ -56,7 +56,7 @@ I'm Adrià Fontcuberta
 
 <Appear>
 
-Senior(?) Software Engineer @ **Holaluz**
+Senior(?) Software Engineer(?) @ **Holaluz**
 
 Maintainer of **Testing Library**
 
@@ -65,6 +65,8 @@ Maintainer of **Testing Library**
 </Appear>
 
 <Notes>
+Fui a la universidad pero no hace falta porque existe stack overflow.
+
 Testing Library: un proyecto open source que ofrece varias opciones
 para testear los principales frameworks front-end del momento.
 </Notes>
@@ -684,14 +686,14 @@ import Counter from './Counter.js'
 test('increments value on click', async () => {
   const { getByText } = render(Counter)
 
-  getByText(/you clicked 0 times/i)
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
 
   const button = getByText(/increment/i)
 
   await fireEvent.click(button)
   await fireEvent.click(button)
 
-  getByText(/you clicked 2 times/i)
+  expect(getByText(/you clicked 2 times/i)).toBeTruthy() 
 })
 ```
 
@@ -705,14 +707,14 @@ import store from './store.js'
 test('increments value on click', async () => {
   const { getByText } = render(Counter, { store })
 
-  getByText(/you clicked 0 times/i)
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
 
   const button = getByText(/increment/i)
 
   await fireEvent.click(button)
   await fireEvent.click(button)
 
-  getByText(/you clicked 2 times/i)
+  expect(getByText(/you clicked 2 times/i)).toBeTruthy() 
 })
 ```
 
