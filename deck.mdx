@@ -16,7 +16,7 @@ export const themes = [future, aspect, customTheme]
 
 ---
 
-...and it isn't _that_ hard
+...and it isn't _that_ hard.
 
 <Notes>
 
@@ -77,7 +77,21 @@ The Testing Pyramid™?
 
 ---
 
-Let's keep things **pragmatic**
+What were the **ideas** behind the pyramid?
+
+---
+
+Write tests. Make them fast. Run them often.
+
+<Appear>
+
+Create shorter, faster **feedback loops**.
+
+</Appear>
+
+---
+
+Let's keep things **pragmatic**.
 
 ---
 
@@ -249,7 +263,7 @@ export default {
 ```html
 <template>
   <div>
-    <p class="count">You clicked {{ count }} times</p>
+    <p class="count-text">You clicked {{ count }} times</p>
     <button @click="count++">increment</button>         
   </div>
 </template>
@@ -271,15 +285,13 @@ export default {
 <span style={{ fontSize: '5rem' }}>❌</span>
 
 ```css
-find did not return .counter,
-cannot call text() on empty Wrapper
+find() did not return .counter
 ```
 <br />
 <br />
 <span style={{ fontSize: '5rem' }}>❌</span>
 
 ```css
-TypeError:
 wrapper.vm.increment is not a function
 ```
 
@@ -312,9 +324,15 @@ This undermines our confidence in testing.
 
 ┬─┬ノ(ಠ_ಠノ)
 
+<Notes>
+
+como dice squirtle, vamo a calmarno
+
+</Notes>
+
 ---
 
-## ⚠️  Implementation Details  ⚠️ 
+Test relied on **implementation details**.
 
 <Notes>
   What do I mean by implementation details?
@@ -333,7 +351,7 @@ Martin Fowler.
 
 if the external behavior does not change, why would a test fail?
 
-exemple: Changing class name.
+exemple: Changing an internal name or removing a function with an inline one.
 
 </Notes>
 
@@ -632,7 +650,11 @@ Farther from implementation details.
 
 ---
 
-“Yeah well, whatever. It's a simple `Counter`.”
+# Reaction #1
+
+---
+
+“Yeah whatever, it's just a Counter.”
 
 ---
 
@@ -728,15 +750,25 @@ Vuex is an **implementation detail**.
 
 ---
 
-"Hm, that's an integration test because potatoes"
+# Reaction #2
 
-"Well, actually, you are writing unit tests, then"
+---
+
+"Hm, that's an **integration test** because potatoes"
+
+"Well, actually, you are writing a **unit test**, then"
 
 <Notes>
   Feedback loops as short as possible.
 
   (again, focused on regression, not code design)
 </Notes>
+
+---
+
+what does "unit" even mean?
+
+# 🤷‍♀️
 
 ---
 
@@ -749,7 +781,7 @@ Vuex is an **implementation detail**.
 
 ---
 
-## A word of caution
+## One last thing
 
 ---
 
@@ -770,7 +802,15 @@ we blame the test instead of blaming poorly designed code.
 
 ---
 
-Front-end development is still **software development** (wait what).
+<Invert>
+
+<Image src="images/trump.jpg" size="contain" />
+
+</Invert>
+
+---
+
+Front-end development is still **software development** (wait what?).
 
 <Appear>
 
@@ -791,20 +831,20 @@ Bear software principles in mind.
 
 <Appear>
 
-Write tests, but **not too many**.
+Write tests, but **not too many**. Focus on value.
 
 Use tools that resemble the way your software is **used**.
 
-Testing is hard? **Blame the code**.
+Testing is hard? Try and **blame the code**.
 
 </Appear>
 
 <Notes>
-  Focus on ROI. Don't overthink things such as the testing pyramid.
+Focus on ROI. Don't overthink things such as the testing pyramid.
 
-  Avoid the test user.
+Avoid the test user.
 
-  Component tests also to complex components.
+Software principles.
 </Notes>
 
 
