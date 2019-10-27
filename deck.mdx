@@ -10,9 +10,13 @@ export const themes = [future, aspect, customTheme]
 
 ## The Pragmatic Front-end Tester
 
+<Signature />
+
 ---
 
 **Testing the front end** shouldn't be that hard...
+
+<Signature />
 
 ---
 
@@ -23,6 +27,8 @@ export const themes = [future, aspect, customTheme]
 Mindset, strategy and tools
 
 </Notes>
+
+<Signature />
 
 ---
 
@@ -48,6 +54,8 @@ This is my experience, so YMMV
   Frontend apps: Ni Node ni librerias ni otros contextos
 </Notes>
 
+<Signature />
+
 ---
 
 ## <Waver /> &nbsp; I'm Adrià Fontcuberta
@@ -71,13 +79,19 @@ Testing Library: un proyecto open source que ofrece varias opciones
 para testear los principales frameworks front-end del momento.
 </Notes>
 
+<Signature />
+
 ---
 
 The Testing Pyramid™?
 
+<Signature />
+
 ---
 
 What were the **ideas** behind the pyramid?
+
+<Signature />
 
 ---
 
@@ -91,9 +105,13 @@ Create shorter, faster **feedback loops**.
 
 </Appear>
 
+<Signature />
+
 ---
 
 Let's keep things **pragmatic**.
+
+<Signature />
 
 ---
 
@@ -103,9 +121,13 @@ Let's see a day-to-day example...
   The kind of component we develop here at Holaluz daily.
 </Notes>
 
+<Signature />
+
 ---
 
 a Counter component &nbsp; 🤷‍♀️
+
+<Signature />
 
 ---
 
@@ -127,6 +149,8 @@ export default {
 }
 </script>
 ```
+
+<Signature />
 
 ---
 
@@ -154,6 +178,8 @@ Similar a Enzyme
 </Notes>
 
 
+<Signature />
+
 ---
 
 ```
@@ -172,6 +198,8 @@ test('increments value on click', () => {
   
 })
 ```
+
+<Signature />
 
 ---
 
@@ -196,26 +224,38 @@ test('increments value on click', () => {
   aaaand this is how a component gets tested
 </Notes>
 
+<Signature />
+
 ---
 
 thanks for coming to my Ted Talk
+
+<Signature />
 
 ---
 
 is it wrong?
 
+<Signature />
+
 ---
 
 nah.
+
+<Signature />
 
 ---
 
 can we do better?
 
+<Signature />
+
 ---
 
 think so.
  
+<Signature />
+
 ---
 
 ```html
@@ -236,6 +276,8 @@ export default {
 }
 </script>
 ```
+
+<Signature />
 
 ---
 
@@ -258,6 +300,8 @@ export default {
 </script>
 ```
 
+<Signature />
+
 ---
 
 ```html
@@ -279,6 +323,8 @@ export default {
 </script>
 ```
 
+<Signature />
+
 ---
 
 
@@ -296,6 +342,8 @@ wrapper.vm.increment is not a function
 ```
 
 
+<Signature />
+
 ---
 
 ## False positive error
@@ -305,6 +353,8 @@ wrapper.vm.increment is not a function
 or, simply put...:
 
 </Notes>
+
+<Signature />
 
 ---
 
@@ -320,6 +370,8 @@ This undermines our confidence in testing.
 
 </Notes>
 
+<Signature />
+
 ---
 
 ┬─┬ノ(ಠ_ಠノ)
@@ -330,6 +382,8 @@ como dice squirtle, vamo a calmarno
 
 </Notes>
 
+<Signature />
+
 ---
 
 ## Implementation details
@@ -337,6 +391,8 @@ como dice squirtle, vamo a calmarno
 <Notes>
   What do I mean by implementation details?
 </Notes>
+
+<Signature />
 
 ---
 
@@ -355,6 +411,8 @@ exemple: Changing an internal name or removing a function with an inline one.
 
 </Notes>
 
+<Signature />
+
 ---
 
 # Smell #2
@@ -367,9 +425,13 @@ Test becomes a different **consumer**.
   wrapper.vm.increment
 </Notes>
 
+<Signature />
+
 ---
 
 a... what?
+
+<Signature />
 
 ---
 
@@ -389,13 +451,19 @@ a... what?
    Nuestro código tiene que responder a les necesidades de ambos usuarios.
 </Notes>
 
+<Signature />
+
 ---
 
 input ➡ Function ➡ output
 
+<Signature />
+
 ---
 
 input ➡ Component ➡ output
+
+<Signature />
 
 ---
 
@@ -412,6 +480,8 @@ Props and interactions.
   Props
 </Notes>
 
+<Signature />
+
 ---
 
 ## Outputs
@@ -427,9 +497,13 @@ Side Effects and DOM elements.
   an input, a div, whatever. Elements on the screen
 </Notes>
 
+<Signature />
+
 ---
 
 99% of times, that’s everything you want to focus on.
+
+<Signature />
 
 ---
 
@@ -442,6 +516,8 @@ In:
 Out:
 
 ## Side effects + DOM nodes
+
+<Signature />
 
 ---
 
@@ -458,7 +534,11 @@ test('increments value on click', () => {
 })
 ```
 
-<h2> 👥? 👩‍💻?</h2>
+<span style={{fontSize:'4.5rem',marginTop: '4rem',display:'block'}}>
+  👥? 👩‍💻?
+</span>
+
+<Signature />
 
 ---
 
@@ -480,6 +560,8 @@ The Test™ 🔎
   How can we write resilient tests that do not depend on impl details and keep
   us away from unlocking a third user?
 </Notes>
+
+<Signature />
 
 ---
 
@@ -506,6 +588,8 @@ The Test™ 🔎
   Works with any environment that provides DOM APIs, such as Jest or a real browser
 </Notes>
 
+<Signature />
+
 ---
 
 <div style={{textAlign:'left'}}>
@@ -531,6 +615,8 @@ If you want to avoid impl details, use tools that help you out.
 
 </Notes>
 
+<Signature />
+
 ---
 
 ```js
@@ -550,6 +636,8 @@ test('increments value on click', async () => {
   
 })
 ```
+
+<Signature />
 
 ---
 
@@ -570,6 +658,8 @@ test('increments value on click', async () => {
   
 })
 ```
+
+<Signature />
 
 ---
 
@@ -590,6 +680,8 @@ test('increments value on click', async () => {
   
 })
 ```
+
+<Signature />
 
 ---
 
@@ -610,6 +702,8 @@ test('increments value on click', async () => {
   
 })
 ```
+<Signature />
+
 ---
 
 ```js
@@ -638,6 +732,8 @@ Act as a user would.
 
 </Notes>
 
+<Signature />
+
 ---
 
 
@@ -659,21 +755,35 @@ test('increments value on click', async () => {
 })
 ```
 
+<Signature />
+
 ---
 
-## We got test that...
+## We wrote a test that...
 
-...are _kinda_ framework agnostic.
+<Appear>
 
-...stay closer to our users.
+...is _kinda_ framework agnostic.
+
+...stays closer to our users.
+
+...does not become a third user.
+
+</Appear>
+
+<Signature />
 
 ---
 
 # Reaction #1
 
+<Signature />
+
 ---
 
 “Yeah whatever, it's just a Counter.”
+
+<Signature />
 
 ---
 
@@ -696,6 +806,8 @@ export default {
 </script>
 ```
 
+<Signature />
+
 ---
 
 ```js
@@ -716,6 +828,8 @@ export const store = {
   },
 }
 ```
+
+<Signature />
 
 ---
 
@@ -738,6 +852,8 @@ test('increments value on click', async () => {
 })
 ```
 
+<Signature />
+
 ---
 
 ```js
@@ -759,6 +875,8 @@ test('increments value on click', async () => {
 })
 ```
 
+<Signature />
+
 ---
 
 Vuex is an **implementation detail**.
@@ -767,9 +885,13 @@ Vuex is an **implementation detail**.
   I wouldn't suggest mocking store modules.
 </Notes>
 
+<Signature />
+
 ---
 
 # Reaction #2
+
+<Signature />
 
 ---
 
@@ -783,13 +905,19 @@ Vuex is an **implementation detail**.
   (again, focused on regression, not code design)
 </Notes>
 
+<Signature />
+
 ---
 
 <span style={{fontSize:'15rem',marginLeft:'3rem'}}> 🤷‍♀️</span>
 
+<Signature />
+
 ---
 
 what does “unit” even mean?
+
+<Signature />
 
 ---
 
@@ -800,9 +928,17 @@ what does “unit” even mean?
 <small><i>- Michael Feathers</i></small>
 </p>
 
+<Signature />
+
+<Notes>
+   Working Effectively with Legacy Code
+</Notes>
+
 ---
 
 # One last thing
+
+<Signature />
 
 ---
 
@@ -821,6 +957,8 @@ we blame the test instead of blaming poorly designed code.
 
 </Notes>
 
+<Signature />
+
 ---
 
 <Image 
@@ -828,6 +966,8 @@ we blame the test instead of blaming poorly designed code.
   style={{width:'100vw',marginLeft:'-10rem'}}
   size="contain"
 />
+
+<Signature />
 
 ---
 
@@ -845,6 +985,8 @@ Bear software principles in mind.
   Think of testing not only as a regression testing tool, but as a way to
   achieve a better design for your code.
 </Notes>
+
+<Signature />
 
 ---
 
@@ -873,6 +1015,8 @@ Software principles.
 </Notes>
 
 
+<Signature />
+
 ---
 
 # To learn more
@@ -882,6 +1026,8 @@ Software principles.
 [github.com/afontcu/awesome-learning](https://github.com/afontcu/awesome-learning#testing)
 
 [testing-library.com](https://testing-library.com)
+
+<Signature />
 
 ---
 

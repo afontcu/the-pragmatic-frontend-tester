@@ -1,13 +1,13 @@
 import React from 'react'
 
-export default function() {
+export default function Signature() {
   return (
     <span
       style={{
-        fontSize: '1.5rem',
+        fontSize: '1.7rem',
         position: 'absolute',
-        bottom: '2rem',
-        right: '2rem',
+        bottom: '2.5rem',
+        right: '4.5rem',
       }}
     >
       @afontcu_
