@@ -89,7 +89,7 @@ The Testing Pyramid™?
 
 ---
 
-What were the **ideas** behind the pyramid?
+What were the **ideas** supporting the pyramid?
 
 <Signature />
 
@@ -188,8 +188,8 @@ import Counter from './Counter'
 
 test('increments value on click', () => {
   const wrapper = mount(Counter)
-  const paragraph = wrapper.find('.counter')
 
+  const paragraph = wrapper.find('.counter')
   expect(paragraph.text()).toBe('You clicked 0 times')
 
   
@@ -209,8 +209,8 @@ import Counter from './Counter'
 
 test('increments value on click', () => {
   const wrapper = mount(Counter)
-  const paragraph = wrapper.find('.counter')
 
+  const paragraph = wrapper.find('.counter')
   expect(paragraph.text()).toBe('You clicked 0 times')
 
   wrapper.vm.increment()
@@ -435,6 +435,34 @@ a... what?
 
 ---
 
+## What is a test?
+
+<Appear>
+
+input ➡ Function ➡ output
+
+</Appear>
+
+<Signature />
+
+---
+
+## What is a test?
+
+input ➡ Component ➡ output
+
+<Signature />
+
+---
+
+What are our inputs and outputs?
+
+<Notes>
+  O dicho de otra forma: ¿quién emite y quien recibe esos outputs?
+</Notes>
+
+---
+
 ## Your code has two users
 
 <Appear>
@@ -455,23 +483,13 @@ a... what?
 
 ---
 
-input ➡ Function ➡ output
-
-<Signature />
-
----
-
-input ➡ Component ➡ output
-
-<Signature />
-
----
-
 ## Inputs
 
 <Appear>
 
-Props and interactions.
+👩‍💻&nbsp; Props
+
+👥&nbsp; Interactions
 
 </Appear>
 
@@ -488,7 +506,9 @@ Props and interactions.
 
 <Appear>
 
-Side Effects and DOM elements.
+👩‍💻 &nbsp;Side Effects
+
+👥&nbsp; DOM elements
 
 </Appear>
 
@@ -522,16 +542,11 @@ Out:
 ---
 
 ```js
-test('increments value on click', () => {
-  const paragraph = wrapper.find('.counter')
+wrapper.find('.counter')
+```
 
-  //...
-
-  wrapper.vm.increment()
-  wrapper.vm.increment()
-
-  // ...
-})
+```js
+wrapper.vm.increment()
 ```
 
 <span style={{fontSize:'4.5rem',marginTop: '4rem',display:'block'}}>
@@ -547,9 +562,10 @@ test('increments value on click', () => {
 You earned yourself a third user. 🤦‍♀️
 
 <br /><br />
+
 <Appear>
 
-The Test™ 🔎
+The Test 🔎
 
 </Appear>
 
@@ -562,6 +578,24 @@ The Test™ 🔎
 </Notes>
 
 <Signature />
+
+---
+
+# Smell #2
+
+Test becomes a different **consumer**.
+
+<Appear>
+
+<span style={{textAlign:'left',fontSize:'5rem', display: 'block'}}>
+  👥&nbsp;&nbsp;👩‍💻&nbsp;&nbsp;🔎
+</span>
+
+</Appear>
+
+---
+
+How can I stay away from relying on implementation details?
 
 ---
 
@@ -624,7 +658,7 @@ import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter)                          
+  const { getByText } = render(Counter)                    
 
   
 
@@ -646,9 +680,9 @@ import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter)                          
+  const { getByText } = render(Counter)                    
 
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy()     
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
   
 
@@ -668,9 +702,9 @@ import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter)                          
+  const { getByText } = render(Counter)                    
 
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy()     
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
   const button = getByText(/increment/i)
 
@@ -690,9 +724,9 @@ import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter)                          
+  const { getByText } = render(Counter)                    
 
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy()     
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
   const button = getByText(/increment/i)
 
@@ -711,16 +745,16 @@ import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter)                          
+  const { getByText } = render(Counter)                    
 
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy()     
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
   const button = getByText(/increment/i)
 
   await fireEvent.click(button) 
   await fireEvent.click(button) 
 
-  expect(getByText(/you clicked 2 times/i)).toBeTruthy()     
+  expect(getByText(/you clicked 2 times/i)).toBeTruthy()
 })
 ```
 
@@ -742,7 +776,7 @@ import { render, fireEvent } from '@testing-library/react'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(<Counter />)                      
+  const { getByText } = render(<Counter />)                
 
   expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
 
@@ -767,7 +801,7 @@ test('increments value on click', async () => {
 
 ...stays closer to our users.
 
-...does not become a third user.
+...does not become a third one.
 
 </Appear>
 
@@ -1033,4 +1067,8 @@ Software principles.
 
 # That's all! <Waver />
 
-afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontcu_ &nbsp;&nbsp;·&nbsp;&nbsp; npx afontcu
+@afontcu_
+
+afontcu.dev
+
+npx afontcu
