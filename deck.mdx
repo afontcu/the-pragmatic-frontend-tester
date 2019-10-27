@@ -1,10 +1,10 @@
-import { Image, Notes, Appear, Embed } from '@mdx-deck/components'  
-import { FullScreenCode, Invert, Split } from 'mdx-deck/layouts'
+import { Image, Notes, Appear } from '@mdx-deck/components'  
 import future from '@mdx-deck/themes/future'
 import aspect from '@mdx-deck/themes/aspect'
 
 import customTheme from './theme'
 import Waver from './Waver'
+import Signature from './Signature'
 
 export const themes = [future, aspect, customTheme]
 
@@ -50,9 +50,7 @@ This is my experience, so YMMV
 
 ---
 
-## <Waver /> Hi!
-
-I'm Adrià Fontcuberta
+## <Waver /> &nbsp; I'm Adrià Fontcuberta
 
 <Appear>
 
@@ -60,7 +58,9 @@ Senior(?) Software Engineer(?) @ **Holaluz**
 
 Maintainer of **Testing Library**
 
-<small>afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontcu_ &nbsp;&nbsp;·&nbsp;&nbsp; npx afontcu</small>
+<p style={{fontSize: '0.8em', marginTop: '10rem'}}>
+afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontcu_ &nbsp;&nbsp;·&nbsp;&nbsp; npx afontcu
+</p>
 
 </Appear>
 
@@ -81,7 +81,9 @@ What were the **ideas** behind the pyramid?
 
 ---
 
-Write tests. Make them fast. Run them often.
+## Write tests
+
+Make them fast. Run them often.
 
 <Appear>
 
@@ -103,9 +105,7 @@ Let's see a day-to-day example...
 
 ---
 
-a Counter component
-
-# 🤷‍♀️
+a Counter component &nbsp; 🤷‍♀️
 
 ---
 
@@ -221,7 +221,7 @@ think so.
 ```html
 <template>
   <div>
-    <p class="counter">You clicked {{ count }} times</p>
+    <p class="counter">You clicked {{ count }} times</p>   
     <button @click="increment">increment</button>
   </div>
 </template>
@@ -242,7 +242,7 @@ export default {
 ```html
 <template>
   <div>
-    <p class="counter">You clicked {{ count }} times</p>
+    <p class="counter">You clicked {{ count }} times</p>   
     <button @click="count++">increment</button>
   </div>
 </template>
@@ -298,7 +298,7 @@ wrapper.vm.increment is not a function
 
 ---
 
-**False positive** error
+## False positive error
 
 <Notes>
 
@@ -332,7 +332,7 @@ como dice squirtle, vamo a calmarno
 
 ---
 
-Test relied on **implementation details**.
+## Implementation details
 
 <Notes>
   What do I mean by implementation details?
@@ -373,13 +373,13 @@ a... what?
 
 ---
 
-Your code has two users:
+## Your code has two users
 
 <Appear>
 
-The end user 👥
+👥 &nbsp;The end user
 
-The developer 👩‍💻
+👩‍💻 &nbsp;The developer
 
 </Appear>
 
@@ -399,19 +399,30 @@ input ➡ Component ➡ output
 
 ---
 
+## Inputs
+
 <Appear>
 
-**Inputs**: Props and interactions.
-
-**Outputs**: Side Effects and DOM elements.
+Props and interactions.
 
 </Appear>
-
 
 <Notes>
   Clicking, typing
   Props
+</Notes>
 
+---
+
+## Outputs
+
+<Appear>
+
+Side Effects and DOM elements.
+
+</Appear>
+
+<Notes>
   HTTP requests, Cookies, `console.log()`, `this.$emit()`
   an input, a div, whatever. Elements on the screen
 </Notes>
@@ -419,6 +430,18 @@ input ➡ Component ➡ output
 ---
 
 99% of times, that’s everything you want to focus on.
+
+---
+
+In:
+
+## Props + interactions
+
+<br />
+
+Out:
+
+## Side effects + DOM nodes
 
 ---
 
@@ -435,11 +458,11 @@ test('increments value on click', () => {
 })
 ```
 
-👥? 👩‍💻?
+<h2> 👥? 👩‍💻?</h2>
 
 ---
 
-Achievement unlocked! 🚀 
+## Achievement unlocked!
 
 You earned yourself a third user. 🤦‍♀️
 
@@ -467,7 +490,7 @@ The Test™ 🔎
 <Appear>
 
 <p>
-“The more your tests resemble <b>the way your software is used</b>, the more confidence they can give you.”
+“The more your tests resemble the way your software is used, the more <strong>confidence</strong> they can give you.”
 <br />
 <br />
 <small><i>- Kent C. Dodds</i></small>
@@ -638,15 +661,11 @@ test('increments value on click', async () => {
 
 ---
 
-<span style={{ fontSize: '11rem' }}>✅</span>
+## We got test that...
 
----
+...are _kinda_ framework agnostic.
 
-_Kinda_ framework agnostic.
-
-Closer to our users.
-
-Farther from implementation details.
+...stay closer to our users.
 
 ---
 
@@ -766,14 +785,16 @@ Vuex is an **implementation detail**.
 
 ---
 
-what does "unit" even mean?
+<span style={{fontSize:'15rem',marginLeft:'3rem'}}> 🤷‍♀️</span>
 
-# 🤷‍♀️
+---
+
+what does “unit” even mean?
 
 ---
 
 <p>
-“A unit is whatever a unit test can test easily.”
+“A unit is whatever a <strong>unit test</strong> can test easily.”
 <br />
 <br />
 <small><i>- Michael Feathers</i></small>
@@ -781,7 +802,7 @@ what does "unit" even mean?
 
 ---
 
-## One last thing
+# One last thing
 
 ---
 
@@ -802,11 +823,11 @@ we blame the test instead of blaming poorly designed code.
 
 ---
 
-<Invert>
-
-<Image src="images/trump.jpg" size="contain" />
-
-</Invert>
+<Image 
+  src="images/trump.jpg"
+  style={{width:'100vw',marginLeft:'-10rem'}}
+  size="contain"
+/>
 
 ---
 
@@ -833,6 +854,8 @@ Bear software principles in mind.
 
 Write tests, but **not too many**. Focus on value.
 
+Components are just **functions**.
+
 Use tools that resemble the way your software is **used**.
 
 Testing is hard? Try and **blame the code**.
@@ -842,6 +865,8 @@ Testing is hard? Try and **blame the code**.
 <Notes>
 Focus on ROI. Don't overthink things such as the testing pyramid.
 
+Think in terms of inputs and outputs.
+
 Avoid the test user.
 
 Software principles.
@@ -850,12 +875,13 @@ Software principles.
 
 ---
 
-## To learn more
+# To learn more
 
+[afontcu.dev](https://afontcu.dev)
 
-  <a href="https://github.com/afontcu/awesome-learning#testing">www.github.com/afontcu/awesome-learning</a>
+[github.com/afontcu/awesome-learning](https://github.com/afontcu/awesome-learning#testing)
 
-  <a href="http://testing-library.com">www.testing-library.com</a>
+[testing-library.com](https://testing-library.com)
 
 ---
 
