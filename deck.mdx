@@ -8,7 +8,7 @@ import Signature from './Signature'
 
 export const themes = [future, aspect, customTheme]
 
-## The Pragmatic Front-end Tester
+## The Pragmatic<br />Front-end Tester
 
 <Signature />
 
@@ -46,11 +46,11 @@ Mindset, strategy and tools
 
 <Appear>
 
-70 slides, meaning 1.7 slides per minute
-
 <s>Why should we test?</s>
 
 <s>Testing as a design tool</s>
+
+<s>Visual regression testing</s>
 
 This is my experience, so YMMV
 
@@ -152,7 +152,7 @@ Let's see a day-to-day example...
 
 ---
 
-a Counter component &nbsp; 🤷‍♀️
+a Counter component&nbsp; 🤷‍♀️
 
 <Signature />
 
@@ -373,21 +373,13 @@ wrapper.vm.increment is not a function
 
 ---
 
-## False positive error
+# False positive error
 
-<Notes>
+<Appear>
 
-or, simply put...:
+“tests fail at random times”<br /><br />(╯°□°)╯︵ ┻━┻ 
 
-</Notes>
-
-<Signature />
-
----
-
-“tests fail at random times”
-
-(╯°□°)╯︵ ┻━┻ 
+</Appear>
 
 <Notes>
 
@@ -413,7 +405,13 @@ como dice squirtle, vamo a calmarno
 
 ---
 
-## Implementation details
+# Smells like...
+
+<Appear>
+
+Implementation details
+
+</Appear>
 
 <Notes>
   What do I mean by implementation details?
@@ -466,7 +464,7 @@ a... what?
 
 <Appear>
 
-input ➡ Function ➡ output
+input ➡ **Function** ➡ output
 
 </Appear>
 
@@ -476,13 +474,13 @@ input ➡ Function ➡ output
 
 ## What is a test?
 
-input ➡ Component ➡ output
+input ➡ **Component** ➡ output
 
 <Signature />
 
 ---
 
-What are our inputs and outputs?
+What are our **inputs** and **outputs**?
 
 <Notes>
   O dicho de otra forma: ¿quién emite y quien recibe esos outputs?
@@ -586,7 +584,7 @@ wrapper.vm.increment()
 
 ## Achievement unlocked!
 
-You earned yourself a third user. 🤦‍♀️
+You earned yourself a third user&nbsp; 🤦‍♀️
 
 <br /><br />
 
@@ -620,7 +618,9 @@ Test becomes a different **consumer**.
 
 ---
 
-How can I stay away from relying on implementation details?
+## okay, so...
+
+How can I stay away from implementation details?
 
 ---
 
@@ -836,6 +836,50 @@ test('increments value on click', async () => {
 
 ---
 
+```js
+expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
+```
+
+<Signature />
+
+---
+
+```js
+// throws if find 0 matches or more than one
+getByText(/you clicked 0 times/i)
+```
+
+<Signature />
+
+---
+
+```js
+// using @testing-library/jest-dom
+expect(getByText(/you clicked 0 times/i)).toBeInTheDocument() 
+```
+
+<Signature />
+
+---
+
+```js
+.toBeInTheDocument() 
+
+.toBeDisabled() 
+
+.toBeEmpty() 
+
+.toHaveTextContent() 
+
+.toHaveFocus() 
+
+.toHaveValue() 
+```
+
+<Signature />
+
+---
+
 # Reaction #1
 
 <Signature />
@@ -1005,6 +1049,20 @@ what does “unit” even mean?
 
 “Testing is hard”
 
+<Signature />
+
+---
+
+(╯°□°)╯︵ ┻━┻  &nbsp;&nbsp;&nbsp; (╯°□°)╯︵ ┻━┻ 
+
+(╯°□°)╯︵ ┻━┻  &nbsp;&nbsp;&nbsp; (╯°□°)╯︵ ┻━┻ 
+
+(╯°□°)╯︵ ┻━┻  &nbsp;&nbsp;&nbsp; (╯°□°)╯︵ ┻━┻ 
+
+(╯°□°)╯︵ ┻━┻  &nbsp;&nbsp;&nbsp; (╯°□°)╯︵ ┻━┻ 
+
+(╯°□°)╯︵ ┻━┻  &nbsp;&nbsp;&nbsp; (╯°□°)╯︵ ┻━┻ 
+
 <Notes>
 hard to test --> doing too much and too coupled
 
@@ -1082,11 +1140,11 @@ Software principles.
 
 # To learn more
 
-[afontcu.dev](https://afontcu.dev)
+afontcu.dev
 
-[github.com/afontcu/awesome-learning](https://github.com/afontcu/awesome-learning#testing)
+github.com/afontcu/awesome-learning
 
-[testing-library.com](https://testing-library.com)
+testing-library.com
 
 <Signature />
 
