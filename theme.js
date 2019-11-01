@@ -1,12 +1,12 @@
 import { syntaxHighlighterPrism } from '@mdx-deck/themes'
-import style from 'react-syntax-highlighter/dist/styles/prism/solarizedlight'
+import style from 'react-syntax-highlighter/dist/styles/prism/prism'
 
 export default syntaxHighlighterPrism({
   prism: {
     style,
   },
   googleFont:
-    'https://fonts.googleapis.com/css?family=Merriweather:300,900|Raleway:900',
+    'https://fonts.googleapis.com/css?family=Merriweather:300,700,900|Raleway:900',
   font: 'Merriweather, Open Sans, sans-serif',
   heading: {
     fontFamily: 'Raleway, Open Sans, sans-serif',
@@ -19,13 +19,15 @@ export default syntaxHighlighterPrism({
     padding: '0 20vw 0 10rem',
     width: '100vw',
     alignItems: 'flex-start',
+    background: 'linear-gradient(90deg, #eef2f3 0%, #8e9eab 80%)',
   },
   pre: {
-    fontSize: '1.8rem',
+    fontSize: '1.8rem !important',
     borderRadius: '12px',
-    boxShadow: '0 10px 110px rgba(0,0, 0,0.3)',
+    boxShadow: '0 10px 110px rgba(0, 0, 0, 0.3)',
     padding: '4rem !important',
     backgroundColor: '#fff !important',
+    fontWeight: '700',
   },
   p: {
     textAlign: 'left',
@@ -42,20 +44,14 @@ export default syntaxHighlighterPrism({
   h3: {
     fontSize: '1.2em',
   },
-  code: {
-    color: 'rgb(65,184,131)',
-    fontWeight: '700',
-  },
   a: {
     color: 'rgb(65,184,131)',
   },
   css: {
     strong: {
       fontWeight: '900',
-      textShadow:
-        '-2px -2px #e7e7e7, -2px 2px #e7e7e7, 2px -2px #e7e7e7, 2px 2px #e7e7e7',
-      backgroundSize: '7px 1em',
-      boxShadow: 'inset 0 -0.15em #e7e7e7, inset 0 -0.21em rgb(65,184,131)',
+      boxShadow: 'inset 0 -1rem 6rem rgb(65, 184, 131)',
+      padding: '0 0.5rem',
       display: 'inline',
     },
     small: {
