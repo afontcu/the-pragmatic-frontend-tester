@@ -860,6 +860,10 @@ expect(getByText(/you clicked 0 times/i)).toBeInTheDocument()
 
 <Signature />
 
+<Notes>
+  Readability and intent over succintness
+</Notes>
+
 ---
 
 ```js
@@ -873,7 +877,7 @@ expect(getByText(/you clicked 0 times/i)).toBeInTheDocument()
 
 .toHaveFocus() 
 
-.toHaveValue() 
+.toHaveAttribute('type', 'submit') 
 ```
 
 <Signature />
@@ -1063,19 +1067,6 @@ what does “unit” even mean?
 
 (╯°□°)╯︵ ┻━┻  &nbsp;&nbsp;&nbsp; (╯°□°)╯︵ ┻━┻ 
 
-<Notes>
-hard to test --> doing too much and too coupled
-
-doing too much --> hard to understand
-
-hard to understand --> hard to maintain
-
-hard to maintain --> one could argue that unmaintainable code is not good code.
-
-we blame the test instead of blaming poorly designed code.
-
-</Notes>
-
 <Signature />
 
 ---
@@ -1099,10 +1090,17 @@ Bear software principles in mind.
 </Appear>
 
 <Notes>
-  Coupling. Decouple from framework?
 
-  Think of testing not only as a regression testing tool, but as a way to
-  achieve a better design for your code.
+hard to test --> doing too much and too coupled
+
+doing too much --> hard to understand
+
+hard to understand --> hard to maintain
+
+hard to maintain --> one could argue that unmaintainable code is not good code.
+
+we blame the test instead of blaming poorly designed code.
+
 </Notes>
 
 <Signature />
