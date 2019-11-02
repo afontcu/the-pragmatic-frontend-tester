@@ -16,7 +16,7 @@ export default syntaxHighlighterPrism({
     textAlign: 'left',
   },
   Slide: {
-    padding: '0 20vw 0 10rem',
+    padding: '0 20vw 0 10vw',
     width: '100vw',
     alignItems: 'flex-start',
     background: 'linear-gradient(90deg, #eef2f3 0%, #8e9eab 80%)',
