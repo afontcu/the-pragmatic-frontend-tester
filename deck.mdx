@@ -836,48 +836,43 @@ test('increments value on click', async () => {
 
 ---
 
+But wait, there's more!
+
+---
+
+```html
+<label for="username">An amazing label</label>
+<input type="text" id="username">
+```
+
 ```js
-expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
+const input = getByLabelText('An amazing label')
 ```
 
 <Signature />
 
 ---
 
+```html
+<div>I'm fabulous</div>
+<button>I'm fabulous</button>
+```
+
 ```js
-// throws if finds 0 matches or more than one
-getByText(/you clicked 0 times/i)
+getByText(`I'm fabulous`) // throws
 ```
 
 <Signature />
 
 ---
 
-```js
-// using @testing-library/jest-dom
-expect(getByText(/you clicked 0 times/i)).toBeInTheDocument() 
+```html
+<div>I'm fabulous</div>
+<button>I'm fabulous</button>
 ```
 
-<Signature />
-
-<Notes>
-  Readability and intent over succintness
-</Notes>
-
----
-
 ```js
-.toBeInTheDocument() 
-
-.toBeDisabled() 
-
-.toBeEmpty() 
-
-.toHaveTextContent() 
-
-.toHaveFocus() 
-
-.toHaveAttribute('type', 'submit') 
+const button = getByRole('button')
 ```
 
 <Signature />
