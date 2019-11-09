@@ -10,7 +10,7 @@ export default function Signature() {
         right: '4.5rem',
       }}
     >
-      @afontcu_
+      @afontq
     </span>
   )
 }
