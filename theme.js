@@ -19,7 +19,7 @@ export default syntaxHighlighterPrism({
     textAlign: 'left',
   },
   Slide: {
-    padding: '0 20vw 0 10vw',
+    padding: '0 12vw 0 10vw',
     width: '100vw',
     alignItems: 'flex-start',
     background: `linear-gradient(120deg, #eef2f3 0%, ${backgroundColor} 85%)`,
