@@ -1,8 +1,10 @@
 import { syntaxHighlighterPrism } from '@mdx-deck/themes'
 import style from 'react-syntax-highlighter/dist/styles/prism/prism'
 
-const backgroundColor = 'hsl(173, 15%, 61%)'
+const backgroundInitialColor = '#252525'
+const backgroundFinalColor = '#05492d'
 const highlightColor = 'hsl(150, 50%, 52%)'
+const textColor = '#f1f1f2'
 
 export default syntaxHighlighterPrism({
   prism: {
@@ -22,7 +24,7 @@ export default syntaxHighlighterPrism({
     padding: '0 12vw 0 10vw',
     width: '100vw',
     alignItems: 'flex-start',
-    background: `linear-gradient(120deg, #eef2f3 0%, ${backgroundColor} 85%)`,
+    background: `linear-gradient(120deg, ${backgroundFinalColor} 0%, ${backgroundInitialColor} 85%)`,
   },
   pre: {
     fontSize: '1.8rem !important',
@@ -62,7 +64,7 @@ export default syntaxHighlighterPrism({
     },
   },
   colors: {
-    text: '#333',
+    text: textColor,
     background: '#e7e7e7',
   },
 })
