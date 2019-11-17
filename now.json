@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "alias": "frontend-testing",
+  "alias": "frontend-testing-dotjs",
   "builds": [
     {
       "src": "package.json",

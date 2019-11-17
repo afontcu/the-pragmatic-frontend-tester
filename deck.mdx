@@ -42,32 +42,6 @@ Mindset, strategy and tools
 
 ---
 
-## Some facts
-
-<Appear>
-
-<s>Why should we test?</s>
-
-<s>Testing as a design tool</s>
-
-<s>Visual regression testing</s>
-
-disclaimer: based on my experience!
-
-</Appear>
-
-<Notes>
-  Speed things up.
-
-  Voy a asumir que... bueno, voy a preguntarlo
-
-  Testing as a code design tool.
-
-  Frontend apps: Ni Node ni librerias ni otros contextos
-</Notes>
-
-<Signature />
-
 ## <Waver /> &nbsp; I’m Adrià Fontcuberta
 
 Senior(?) Sw Engineer @ **Holaluz**
@@ -107,11 +81,11 @@ What were the **ideas** supporting the pyramid?
 
 ## Write tests
 
-Make them fast. Make them cheap. Run them often.
+Make them fast. Make them cheap. Focus on value. Run them often.
 
 <Appear>
 
-Create shorter, faster **feedback loops**.
+Create shorter, faster<br />**feedback loops**.
 
 </Appear>
 
@@ -244,30 +218,6 @@ test('increments value on click', () => {
 
 thanks for coming to my Ted Talk.
 
-<Signature />
-
----
-
-is it wrong?
-
-<Signature />
-
----
-
-nah.
-
-<Signature />
-
----
-
-can we do better?
-
-<Signature />
-
----
-
-think so.
- 
 <Signature />
 
 ---
@@ -838,152 +788,6 @@ const input = getByLabelText('An amazing label')
 
 ---
 
-```html
-<div>I'm fabulous</div>
-<button>I'm fabulous</button>
-```
-
-```js
-getByText(`I'm fabulous`) // throws
-```
-
-<Signature />
-
----
-
-```html
-<div>I'm fabulous</div>
-<button>I'm fabulous</button>
-```
-
-```js
-const button = getByRole('button')
-```
-
-<Signature />
-
----
-
-# Reaction #1
-
-<Signature />
-
----
-
-“Yeah whatever, it’s just a Counter.”
-
-<Signature />
-
----
-
-```html
-<template>
-  <div>
-    <p class="counter">You clicked {{ count }} times</p>
-    <button @click="increment">increment</button>
-  </div>
-</template>
-
-<script>
-import { mapActions, mapState } from 'vuex'
-
-export default {
-  computed: { ...mapState(['count']) },
-
-  methods: { ...mapActions(['increment']) },
-}
-</script>
-```
-
-<Signature />
-
----
-
-```js
-export const store = {
-  state: {
-    count: 0,
-  },
-
-  actions: {
-    increment: ({ commit, state }) =>
-      commit('SET_COUNT', state.count + 1),
-  },
-
-  mutations: {
-    SET_COUNT: (state, count) => {
-      state.count = count
-    },
-  },
-}
-```
-
-<Signature />
-
----
-
-```js
-import { render, fireEvent } from '@testing-library/vue'
-import Counter from './Counter.js'
-
-
-test('increments value on click', async () => {
-  const { getByText } = render(Counter)
-
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
-
-  const button = getByText(/increment/i)
-
-  await fireEvent.click(button)
-  await fireEvent.click(button)
-
-  expect(getByText(/you clicked 2 times/i)).toBeTruthy() 
-})
-```
-
-<Signature />
-
----
-
-```js
-import { render, fireEvent } from '@testing-library/vue'
-import Counter from './Counter.js'
-import store from './store.js'
-
-test('increments value on click', async () => {
-  const { getByText } = render(Counter, { store })
-
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
-
-  const button = getByText(/increment/i)
-
-  await fireEvent.click(button)
-  await fireEvent.click(button)
-
-  expect(getByText(/you clicked 2 times/i)).toBeTruthy() 
-})
-```
-
-<Signature />
-
----
-
-Vuex is an **implementation detail**.
-
-<Notes>
-  I wouldn't suggest mocking store modules.
-</Notes>
-
-<Signature />
-
----
-
-# Reaction #2
-
-<Signature />
-
----
-
 “Hm, that’s an **integration test** because potatoes”
 
 “Well, actually, you are writing a **unit test**, then”
@@ -1029,75 +833,15 @@ what does “unit” even mean?
 
 ---
 
-One last thing
-
-<Signature />
-
----
-
-<Appear>
-<h1 style={{display:'inline'}}>Testing&nbsp;</h1>
-<h1 style={{display:'inline'}}>is&nbsp;</h1>
-<h1 style={{display:'inline'}}>hard&nbsp;</h1>
-</Appear>
-
-<Signature />
-
----
-
-<Image src="images/fed-up.gif" size="cover" style={{
-  marginLeft: '-10vw'
-}}/>
-
----
-
-Front-end development is still **software development** (wait what?).
-
-<Appear>
-
-Bear software principles in mind.
-
-</Appear>
-
-<Notes>
-
-hard to test --> doing too much and too coupled
-
-doing too much --> hard to understand
-
-hard to understand --> hard to maintain
-
-hard to maintain --> one could argue that unmaintainable code is not good code.
-
-we blame the test instead of blaming poorly designed code.
-
-</Notes>
-
-<Signature />
-
----
-
-<Image 
-  src="images/trump.jpg"
-  style={{width:'100vw',marginLeft:'-10rem'}}
-  size="contain"
-/>
-
-<Signature />
-
----
-
 ## Wrapping up
 
 <Appear>
 
 Write tests, but **not too many**. Focus on value.
 
-Components are just **functions**.
+Inputs & outputs: Components are just **functions**!
 
 Use tools that resemble the way your software is **used**.
-
-Testing is hard? Try and **blame the code**.
 
 </Appear>
 
@@ -1108,7 +852,6 @@ Think in terms of inputs and outputs.
 
 Avoid the test user.
 
-Software principles.
 </Notes>
 
 
