@@ -12,13 +12,7 @@
       "src": "^/images/(.*)",
       "dest": "/images/$1"
     },
-    {
-      "src": "index.html",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html/$1"
-    }
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
   ]
 }
