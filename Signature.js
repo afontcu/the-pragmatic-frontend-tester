@@ -6,7 +6,7 @@ export default function Signature() {
       style={{
         fontSize: '1.7rem',
         position: 'absolute',
-        bottom: '2.5rem',
+        top: '2.5rem',
         right: '4.5rem',
       }}
     >
