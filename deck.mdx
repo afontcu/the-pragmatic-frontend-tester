@@ -864,7 +864,7 @@ But wait, there’s more!
 
 ```html
 <label for="username">An amazing label</label>
-<input type="text" id="username">
+<input id="username" type="text">
 ```
 
 ```js
@@ -894,7 +894,7 @@ getByText(`I'm fabulous`) // throws
 ```
 
 ```js
-const button = getByRole('button')
+const button = getByRole('button') 
 ```
 
 <Signature />
@@ -1112,13 +1112,30 @@ we blame the test instead of blaming poorly designed code.
 
 ---
 
-<Image 
-  src="images/trump.jpg"
-  style={{width:'100vw',marginLeft:'-10rem'}}
-  size="contain"
-/>
+<Image src="images/abadia.jpeg" size="cover" style={{
+  marginLeft: '-10vw'
+}}/>
 
-<Signature />
+<Notes>
+
+hard to test --> doing too much and too coupled
+
+doing too much --> hard to understand
+
+hard to understand --> hard to maintain
+
+hard to maintain --> one could argue that unmaintainable code is not good code.
+
+we blame the test instead of blaming poorly designed code.
+
+</Notes>
+
+---
+
+<Image src="images/trump.jpg" size="cover" style={{
+  marginLeft: '-10vw'
+}}
+/>
 
 ---
 
