@@ -13,9 +13,11 @@ export const themes = [future, aspect, customTheme]
 <Signature />
 
 <Notes>
+Sois unos y unas valientes.
+
 This is testing + front end. Feel free to leave now.
 
-They say you should focus on the idea you want the people to remember.
+Contar la idea inicial de la charla.
 </Notes>
 
 ---
@@ -52,7 +54,7 @@ Mindset, strategy and tools
 
 <s>Visual regression testing</s>
 
-disclaimer: based on my experience!
+Based on my experience!
 
 </Appear>
 
@@ -159,10 +161,6 @@ Let’s keep things **pragmatic**.
 ---
 
 Let’s see a day-to-day example...
-
-<Notes>
-  The kind of component we develop here at Holaluz daily.
-</Notes>
 
 <Signature />
 
@@ -801,18 +799,18 @@ test('increments value on click', async () => {
 })
 ```
 
-<Notes>
-
-Query as a user would.
-
-Act as a user would.
-
-</Notes>
-
 <Signature />
 
----
+<Notes>
+  Query as a user would.
 
+  Act upon as a user would.
+
+
+  NEXT SLIDE REACT.
+</Notes>
+
+---
 
 ```jsx
 import { render, fireEvent } from '@testing-library/react'
@@ -821,18 +819,114 @@ import Counter from './Counter'
 test('increments value on click', async () => {
   const { getByText } = render(<Counter />)                
 
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
   const button = getByText(/increment/i)
 
   await fireEvent.click(button) 
   await fireEvent.click(button) 
 
-  expect(getByText(/you clicked 2 times/i)).toBeTruthy() 
+  expect(getByText(/you clicked 2 times/i)).toBeTruthy()
 })
 ```
 
 <Signature />
+
+<Notes>
+  NEXT SLIDE: Tests son código!
+</Notes>
+
+---
+
+```js
+function renderCounter() {
+  const utils = render(Counter)                             
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+}
+```
+
+<Signature />
+
+---
+
+```js
+function renderCounter() {
+  const utils = render(Counter)
+
+  const click = () =>
+    fireEvent.click(utils.getByText(/increment/i))
+
+  const getCounterText = num =>
+    utils.getByText(new RegExp('clicked ' + num + ' times'))
+  
+  
+  
+  
+  
+
+}
+```
+
+<Signature />
+
+---
+
+```js
+function renderCounter() {
+  const utils = render(Counter)
+
+  const click = () =>
+    fireEvent.click(utils.getByText(/increment/i))
+
+  const getCounterText = num =>
+    utils.getByText(new RegExp('clicked ' + num + ' times'))
+  
+  return {
+    click,
+    getCounterText,
+    ...utils,
+  }
+}
+```
+
+<Signature />
+
+---
+
+```js
+import { render, fireEvent } from '@testing-library/vue'
+import Counter from './Counter'
+
+test('increments value on click', async () => {
+  const { click, getCounterText } = renderCounter(Counter)    
+
+  expect(getCounterText(0)).toBeTruthy()
+
+  await click()
+  await click()
+
+  expect(getCounterText(2)).toBeTruthy()
+})
+```
+
+<Notes>
+  Más semántica.
+
+  Enfocado a comportamiento.
+
+  Abstracción de detalles.
+</Notes>
 
 ---
 
@@ -1117,6 +1211,8 @@ we blame the test instead of blaming poorly designed code.
 }}/>
 
 <Notes>
+
+Javier Abadía – Refactoring
 
 hard to test --> doing too much and too coupled
 
