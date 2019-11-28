@@ -13,7 +13,7 @@ export const themes = [future, aspect, customTheme]
 <Signature />
 
 <Notes>
-Sois unos y unas valientes.
+Tengo la necesidad de daros las gracias. Sois unos y unas valientes.
 
 This is testing + front end. Feel free to leave now.
 
@@ -1046,22 +1046,39 @@ export const store = {
 ---
 
 ```js
-import { render, fireEvent } from '@testing-library/vue'
-import Counter from './Counter.js'
+ 
 
+function renderCounter() {
+  const utils = render(Counter)
 
-test('increments value on click', async () => {
-  const { getByText } = render(Counter)
+  const click = () =>
+    fireEvent.click(utils.getByText(/increment/i))
 
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
+  const getCounterText = num =>
+    utils.getByText(new RegExp('clicked ' + num + ' times'))
+  
+  return { click, getCounterText, ...utils }
+}
+```
 
-  const button = getByText(/increment/i)
+<Signature />
 
-  await fireEvent.click(button)
-  await fireEvent.click(button)
+---
 
-  expect(getByText(/you clicked 2 times/i)).toBeTruthy() 
-})
+```js
+import store from './store'
+
+function renderCounter() {
+  const utils = render(Counter, { store })
+
+  const click = () =>
+    fireEvent.click(utils.getByText(/increment/i))
+
+  const getCounterText = num =>
+    utils.getByText(new RegExp('clicked ' + num + ' times'))
+  
+  return { click, getCounterText, ...utils }
+}
 ```
 
 <Signature />
@@ -1070,24 +1087,27 @@ test('increments value on click', async () => {
 
 ```js
 import { render, fireEvent } from '@testing-library/vue'
-import Counter from './Counter.js'
-import store from './store.js'
+import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter, { store })
+  const { click, getCounterText } = renderCounter(Counter)    
 
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy() 
+  expect(getCounterText(0)).toBeTruthy()
 
-  const button = getByText(/increment/i)
+  await click()
+  await click()
 
-  await fireEvent.click(button)
-  await fireEvent.click(button)
-
-  expect(getByText(/you clicked 2 times/i)).toBeTruthy() 
+  expect(getCounterText(2)).toBeTruthy()
 })
 ```
 
-<Signature />
+<Notes>
+  Más semántica.
+
+  Enfocado a comportamiento.
+
+  Abstracción de detalles.
+</Notes>
 
 ---
 
