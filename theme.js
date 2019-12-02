@@ -62,6 +62,10 @@ export default syntaxHighlighterPrism({
     small: {
       textAlign: 'left',
     },
+    'div[class*="Outer"]': {
+      paddingBottom: 'inherit',
+      position: 'inherit',
+    },
   },
   colors: {
     text: textColor,
