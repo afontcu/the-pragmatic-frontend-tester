@@ -234,7 +234,7 @@ export default {
 <template>
   <div>
     <p class="counter">You clicked {{ count }} times</p>   
-    <button @click="count++">increment</button>
+    <button @click="add">increment</button>
   </div>
 </template>
 
@@ -242,9 +242,9 @@ export default {
 export default {
   data: () => ({ count: 0 }),
 
-  // methods: {
-  //   increment() { this.count++ },
-  // },
+  methods: {
+    add() { this.count++ },
+  },
 }
 </script>
 ```
@@ -253,37 +253,6 @@ export default {
 
 ---
 
-```html
-<template>
-  <div>
-    <p class="count-text">You clicked {{ count }} times</p>
-    <button @click="count++">increment</button>         
-  </div>
-</template>
-
-<script>
-export default {
-  data: () => ({ count: 0 }),
-
-  // methods: {
-  //   increment() { this.count++ },
-  // },
-}
-</script>
-```
-
-<Signature />
-
----
-
-
-<span style={{ fontSize: '5rem' }}>❌</span>
-
-```css
-find() did not return .counter
-```
-<br />
-<br />
 <span style={{ fontSize: '5rem' }}>❌</span>
 
 ```css
@@ -450,10 +419,6 @@ Out:
 <Signature />
 
 ---
-
-```js
-wrapper.find('.counter')
-```
 
 ```js
 wrapper.vm.increment()
