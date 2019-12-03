@@ -93,7 +93,7 @@ Create shorter, faster<br />**feedback loops**.
 <Signature />
 
 <Notes>
-  "Cheap" de mantener
+  "Cheap" to maintain.
 </Notes>
 
 ---
@@ -146,7 +146,7 @@ test('increments value on click', () => {
 
 <Notes>
 
-Similar a Enzyme
+Similar to Enzyme
 
 </Notes>
 
@@ -293,9 +293,7 @@ What went wrong?
 Our test became a different **consumer**.
 
 <Notes>
-  It becomes a third consumer. Needs to be taken into account.
-
-  wrapper.vm.increment
+  Needs to be taken into account. Fulfill its requirements.
 </Notes>
 
 <Signature />
@@ -307,7 +305,7 @@ a... what?
 <Signature />
 
 <Notes>
-  To anser
+  To answer this question we need to take a step back.
 </Notes>
 
 ---
@@ -335,7 +333,7 @@ input ➡ **Component** ➡ output
 What are our **inputs** and **outputs**?
 
 <Notes>
-  O dicho de otra forma: ¿quién emite y quien recibe esos outputs?
+  Put it another way: who's emiting and receiving those inputs and outputs?
 </Notes>
 
 <Signature />
@@ -354,8 +352,6 @@ What are our **inputs** and **outputs**?
 
 <Notes>
    You are your own code’s consumer. Let it sink.
-
-   Nuestro código tiene que responder a les necesidades de ambos usuarios.
 </Notes>
 
 <Signature />
@@ -393,7 +389,8 @@ What are our **inputs** and **outputs**?
 
 <Notes>
   HTTP requests, Cookies, `console.log()`, `this.$emit()`
-  an input, a div, whatever. Elements on the screen
+
+  input, div, whatever. Elements on the screen
 </Notes>
 
 <Signature />
@@ -499,8 +496,6 @@ How can I stay away from implementation details?
   Simple and complete testing utilities.
 
   IT IS NOT a test runner or framework.
-
-  Works with any environment that provides DOM APIs, such as Jest or a real browser
 </Notes>
 
 <Signature />
@@ -524,9 +519,6 @@ How can I stay away from implementation details?
 ...
 
 <Notes>
-
-Built on top of vue test utils. Hides methods that get you closer to testing
-implementation details, while providing user-focused helpers.
 
 If you want to avoid impl details, use tools that help you out.
 
