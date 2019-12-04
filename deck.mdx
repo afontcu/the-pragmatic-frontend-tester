@@ -8,14 +8,22 @@ import Signature from './Signature'
 
 export const themes = [future, aspect, customTheme]
 
+<Notes>
+For those of you who expected some exciting topic right after lunch...
+
+well, I'm sorry.  
+</Notes>
+
+---
+
 ## The Pragmatic<br />Front-end Tester
 
 <Signature />
 
 <Notes>
-For those of you who expected some exciting topic, well, I'm sorry.
-
 This is about testing the front-end.
+
+Feel free to leave.
 
 However, if you choose to stay, I'll try to sell you the idea that (CHANGE SLIDE).
 </Notes>
@@ -82,11 +90,11 @@ What were the **ideas** supporting the pyramid?
 
 ## Write tests
 
-Make them fast and cheap. Focus on value. Run them often.
+Make them fast and cheap.<br />Focus on value. Run them often.
 
 <Appear>
 
-Create shorter, faster<br />**feedback loops**.
+Create shorter, faster **feedback loops**.
 
 </Appear>
 
@@ -101,6 +109,10 @@ Create shorter, faster<br />**feedback loops**.
 Let’s keep things **pragmatic**.
 
 <Signature />
+
+<Notes>
+Who has used Vue?
+</Notes>
 
 ---
 
@@ -201,7 +213,7 @@ test('increments value on click', () => {
 
 ---
 
-thanks for coming to my TED Talk.
+Thanks for coming to my TED Talk.
 
 <Signature />
 
@@ -340,7 +352,7 @@ What are our **inputs** and **outputs**?
 
 ---
 
-## Your code has two users
+### Your code has two users
 
 <Appear>
 
@@ -362,15 +374,16 @@ What are our **inputs** and **outputs**?
 
 <Appear>
 
-👩‍💻&nbsp; Props
+👩‍💻&nbsp; Props + Data streams
 
 👥&nbsp; Interactions
 
 </Appear>
 
 <Notes>
+  Data fetching on mount, subscriptions...
+
   Clicking, typing
-  Props
 </Notes>
 
 <Signature />
@@ -405,13 +418,13 @@ What are our **inputs** and **outputs**?
 
 In:
 
-## Props + interactions
+### Props, Data Streams + Interactions
 
 <br />
 
 Out:
 
-## Side effects + DOM nodes
+### Side effects + DOM nodes
 
 <Signature />
 
@@ -419,6 +432,10 @@ Out:
 
 ```js
 wrapper.vm.increment()
+```
+
+```js
+wrapper.find('.counter')
 ```
 
 <span style={{fontSize:'4.5rem',marginTop: '4rem',display:'block'}}>
@@ -676,8 +693,6 @@ test('increments value on click', async () => {
 
 ...stays closer to our users.
 
-...does not become a third one.
-
 </Appear>
 
 <Signature />
@@ -692,7 +707,7 @@ But wait, there’s more!
 
 ```html
 <label for="username">An amazing label</label>
-<input type="text" id="username">
+<input id="username" type="text">
 ```
 
 ```js
@@ -703,7 +718,7 @@ const input = getByLabelText('An amazing label')
 
 ---
 
-## Wrapping up
+## Wrapping it up
 
 <Appear>
 
@@ -742,3 +757,12 @@ testing-library.com
 @afontq
 
 afontcu.dev
+
+<Notes>
+That's everything I got time to tell you about today.
+
+Thank you very much for having me here, it's been truly and honor.
+
+Enjoy the rest of the conference!
+
+</Notes>
