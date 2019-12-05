@@ -6,13 +6,5 @@
       "src": "package.json",
       "use": "@now/static-build"
     }
-  ],
-  "routes": [
-    {
-      "src": "^/images/(.*)",
-      "dest": "/images/$1"
-    },
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
   ]
 }
