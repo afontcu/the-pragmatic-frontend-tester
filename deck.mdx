@@ -1,4 +1,4 @@
-import { Image, Notes, Appear } from '@mdx-deck/components'  
+import { Image, Notes, Appear } from '@mdx-deck/components'
 import future from '@mdx-deck/themes/future'
 import aspect from '@mdx-deck/themes/aspect'
 
@@ -76,14 +76,14 @@ Based on my experience!
 
 <Appear>
 
-Senior(?) Sw Engineer @ **Holaluz**
+Software Engineer @ **Holaluz**
 
-Maintainer of **Testing Library**
+OS @ **Vue Test Utils**,  **Testing Library**
 
 Co-organizer of **VueJS BCN**
 
 <p style={{fontSize: '0.8em', marginTop: '10rem'}}>
-afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; <strike>@afontcu_</strike>
+afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontq
 </p>
 
 </Appear>
@@ -94,20 +94,6 @@ Fui a la universidad porque me di cuenta demasiado tarde que existía StackOverf
 Testing Library: un proyecto open source que ofrece varias opciones
 para testear los principales frameworks front-end del momento.
 </Notes>
-
----
-
-## <Waver /> &nbsp; I’m Adrià Fontcuberta
-
-Senior(?) Sw Engineer @ **Holaluz**
-
-Maintainer of **Testing Library**
-
-Co-organizer of **VueJS BCN**
-
-<p style={{fontSize: '0.8em', marginTop: '10rem'}}>
-afontcu.dev &nbsp;&nbsp;·&nbsp;&nbsp; @afontq
-</p>
 
 ---
 
@@ -200,15 +186,15 @@ import { mount } from '@vue/test-utils'
 import Counter from './Counter'
 
 test('increments value on click', () => {
-  const wrapper = mount(Counter)                      
-  
+  const wrapper = mount(Counter)
 
 
 
-  
-  
 
-  
+
+
+
+
 })
 ```
 
@@ -233,10 +219,10 @@ test('increments value on click', () => {
   const paragraph = wrapper.find('.counter')
   expect(paragraph.text()).toBe('You clicked 0 times')
 
-  
-  
 
-  
+
+
+
 })
 ```
 
@@ -294,7 +280,7 @@ can we do better?
 ---
 
 think so.
- 
+
 <Signature />
 
 ---
@@ -302,7 +288,7 @@ think so.
 ```html
 <template>
   <div>
-    <p class="counter">You clicked {{ count }} times</p>   
+    <p class="counter">You clicked {{ count }} times</p>
     <button @click="increment">increment</button>
   </div>
 </template>
@@ -325,7 +311,7 @@ export default {
 ```html
 <template>
   <div>
-    <p class="counter">You clicked {{ count }} times</p>   
+    <p class="counter">You clicked {{ count }} times</p>
     <button @click="count++">increment</button>
   </div>
 </template>
@@ -349,7 +335,7 @@ export default {
 <template>
   <div>
     <p class="count-text">You clicked {{ count }} times</p>
-    <button @click="count++">increment</button>         
+    <button @click="count++">increment</button>
   </div>
 </template>
 
@@ -391,7 +377,7 @@ wrapper.vm.increment is not a function
 
 <Appear>
 
-“tests fail at random times”<br /><br />(╯°□°)╯︵ ┻━┻ 
+“tests fail at random times”<br /><br />(╯°□°)╯︵ ┻━┻
 
 </Appear>
 
@@ -408,12 +394,6 @@ This undermines our confidence in testing.
 ---
 
 ┬─┬ノ(ಠ_ಠノ)
-
-<Notes>
-
-como dice squirtle, vamo a calmarno
-
-</Notes>
 
 <Signature />
 
@@ -522,7 +502,7 @@ What are our **inputs** and **outputs**?
 
 <Appear>
 
-👩‍💻&nbsp; Props
+👩‍💻&nbsp; Props + Data Streams
 
 👥&nbsp; Interactions
 
@@ -564,7 +544,7 @@ What are our **inputs** and **outputs**?
 
 In:
 
-## Props + interactions
+## Props, Data Streams + interactions
 
 <br />
 
@@ -605,7 +585,7 @@ The Test 🔎
 </Appear>
 
 <Notes>
-  If a test relies on implementation details, then the test becomes a third 
+  If a test relies on implementation details, then the test becomes a third
   user. And you’re gonna need to please it.
 </Notes>
 
@@ -699,16 +679,16 @@ import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter)                    
+  const { getByText } = render(Counter)
 
-  
 
-  
 
-  
-  
 
-  
+
+
+
+
+
 })
 ```
 
@@ -721,16 +701,16 @@ import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter)                    
+  const { getByText } = render(Counter)
 
   expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
-  
 
-  
-  
 
-  
+
+
+
+
 })
 ```
 
@@ -743,38 +723,38 @@ import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter)                    
-
-  expect(getByText(/you clicked 0 times/i)).toBeTruthy()
-
-  const button = getByText(/increment/i)
-
-
-
-
-  
-})
-```
-
-<Signature />
-
----
-
-```js
-import { render, fireEvent } from '@testing-library/vue'
-import Counter from './Counter'
-
-test('increments value on click', async () => {
-  const { getByText } = render(Counter)                    
+  const { getByText } = render(Counter)
 
   expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
   const button = getByText(/increment/i)
 
-  await fireEvent.click(button) 
-  await fireEvent.click(button) 
 
-  
+
+
+
+})
+```
+
+<Signature />
+
+---
+
+```js
+import { render, fireEvent } from '@testing-library/vue'
+import Counter from './Counter'
+
+test('increments value on click', async () => {
+  const { getByText } = render(Counter)
+
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()
+
+  const button = getByText(/increment/i)
+
+  await fireEvent.click(button)
+  await fireEvent.click(button)
+
+
 })
 ```
 <Signature />
@@ -786,14 +766,14 @@ import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(Counter)                    
+  const { getByText } = render(Counter)
 
   expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
   const button = getByText(/increment/i)
 
-  await fireEvent.click(button) 
-  await fireEvent.click(button) 
+  await fireEvent.click(button)
+  await fireEvent.click(button)
 
   expect(getByText(/you clicked 2 times/i)).toBeTruthy()
 })
@@ -817,116 +797,20 @@ import { render, fireEvent } from '@testing-library/react'
 import Counter from './Counter'
 
 test('increments value on click', async () => {
-  const { getByText } = render(<Counter />)                
+  const { getByText } = render(<Counter />)
 
   expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
   const button = getByText(/increment/i)
 
-  await fireEvent.click(button) 
-  await fireEvent.click(button) 
+  await fireEvent.click(button)
+  await fireEvent.click(button)
 
   expect(getByText(/you clicked 2 times/i)).toBeTruthy()
 })
 ```
 
 <Signature />
-
-<Notes>
-  NEXT SLIDE: Tests son código!
-</Notes>
-
----
-
-```js
-function renderCounter() {
-  const utils = render(Counter)                             
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-}
-```
-
-<Signature />
-
----
-
-```js
-function renderCounter() {
-  const utils = render(Counter)
-
-  const click = () =>
-    fireEvent.click(utils.getByText(/increment/i))
-
-  const getCounterText = num =>
-    utils.getByText(new RegExp('clicked ' + num + ' times'))
-  
-  
-  
-  
-  
-
-}
-```
-
-<Signature />
-
----
-
-```js
-function renderCounter() {
-  const utils = render(Counter)
-
-  const click = () =>
-    fireEvent.click(utils.getByText(/increment/i))
-
-  const getCounterText = num =>
-    utils.getByText(new RegExp('clicked ' + num + ' times'))
-  
-  return {
-    click,
-    getCounterText,
-    ...utils,
-  }
-}
-```
-
-<Signature />
-
----
-
-```js
-import { render, fireEvent } from '@testing-library/vue'
-import Counter from './Counter'
-
-test('increments value on click', async () => {
-  const { click, getCounterText } = renderCounter(Counter)    
-
-  expect(getCounterText(0)).toBeTruthy()
-
-  await click()
-  await click()
-
-  expect(getCounterText(2)).toBeTruthy()
-})
-```
-
-<Notes>
-  Más semántica.
-
-  Enfocado a comportamiento.
-
-  Abstracción de detalles.
-</Notes>
 
 ---
 
@@ -981,6 +865,19 @@ getByRole()
 getByDisplayValue()
 
 getByTestId()
+```
+
+<Signature />
+
+---
+
+```html
+<div>My text</div>
+<button>My text</button>
+```
+
+```js
+const button = getByRole('My text')
 ```
 
 <Signature />
@@ -1046,68 +943,44 @@ export const store = {
 ---
 
 ```js
- 
+import { render, fireEvent } from '@testing-library/vue'
+import Counter from './Counter'
 
-function renderCounter() {
-  const utils = render(Counter)
 
-  const click = () =>
-    fireEvent.click(utils.getByText(/increment/i))
+test('increments value on click', async () => {
+  const { getByText } = render(Counter)
 
-  const getCounterText = num =>
-    utils.getByText(new RegExp('clicked ' + num + ' times'))
-  
-  return { click, getCounterText, ...utils }
-}
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()
+
+  const button = getByText(/increment/i)
+
+  await fireEvent.click(button)
+  await fireEvent.click(button)
+
+  expect(getByText(/you clicked 2 times/i)).toBeTruthy()
+})
 ```
-
-<Signature />
-
----
-
-```js
-import store from './store'
-
-function renderCounter() {
-  const utils = render(Counter, { store })
-
-  const click = () =>
-    fireEvent.click(utils.getByText(/increment/i))
-
-  const getCounterText = num =>
-    utils.getByText(new RegExp('clicked ' + num + ' times'))
-  
-  return { click, getCounterText, ...utils }
-}
-```
-
-<Signature />
 
 ---
 
 ```js
 import { render, fireEvent } from '@testing-library/vue'
 import Counter from './Counter'
+import store from './store'
 
 test('increments value on click', async () => {
-  const { click, getCounterText } = renderCounter(Counter)    
+  const { getByText } = render(Counter, { store })
 
-  expect(getCounterText(0)).toBeTruthy()
+  expect(getByText(/you clicked 0 times/i)).toBeTruthy()
 
-  await click()
-  await click()
+  const button = getByText(/increment/i)
 
-  expect(getCounterText(2)).toBeTruthy()
+  await fireEvent.click(button)
+  await fireEvent.click(button)
+
+  expect(getByText(/you clicked 2 times/i)).toBeTruthy()
 })
 ```
-
-<Notes>
-  Más semántica.
-
-  Enfocado a comportamiento.
-
-  Abstracción de detalles.
-</Notes>
 
 ---
 
@@ -1220,28 +1093,6 @@ we blame the test instead of blaming poorly designed code.
 
 ---
 
-<Image src="images/abadia.jpeg" size="cover" style={{
-  marginLeft: '-10vw'
-}}/>
-
-<Notes>
-
-Javier Abadía – Refactoring
-
-hard to test --> doing too much and too coupled
-
-doing too much --> hard to understand
-
-hard to understand --> hard to maintain
-
-hard to maintain --> one could argue that unmaintainable code is not good code.
-
-we blame the test instead of blaming poorly designed code.
-
-</Notes>
-
----
-
 <Image src="images/trump.jpg" size="cover" style={{
   marginLeft: '-10vw'
 }}
@@ -1253,18 +1104,18 @@ we blame the test instead of blaming poorly designed code.
 
 <Appear>
 
-Write tests, but **not too many**. Focus on value.
+Write tests, but **not too many**.
 
 Components are just **functions**.
 
 Use tools that resemble the way your software is **used**.
 
-Testing is hard? Try and **blame the code**.
+Testing is hard? **Blame the code**.
 
 </Appear>
 
 <Notes>
-Focus on ROI. Don't overthink things such as the testing pyramid.
+Focus on value / ROI. Don't overthink things such as the testing pyramid.
 
 Think in terms of inputs and outputs.
 
